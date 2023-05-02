@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="brand_color">#CE135A</color>
+    <color name="beige">#F0C4C1</color>
+    <color name="light_beige">#F9E0DC</color>
+    <color name="black">#303030</color>
+    <color name="white">#FFFFFF</color>
+    <color name="purple">#B4B5E9</color>
+    <color name="pink">#E88B9A</color>
+    <color name="gray">#606060</color>
+    <color name="bg">#FEFCED</color>
+</resources>

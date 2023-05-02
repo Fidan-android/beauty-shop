@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="70dp"
+    android:id="@+id/rootView"
+    app:cardElevation="4dp"
+    android:layout_marginTop="10dp"
+    android:layout_marginHorizontal="12dp"
+    app:cardCornerRadius="8dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:paddingVertical="10dp"
+        android:layout_gravity="center"
+        android:layout_marginHorizontal="10dp"
+        android:orientation="horizontal">
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                app:cardCornerRadius="45dp"
+                app:cardElevation="4dp">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/masterAvatar"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:scaleType="centerCrop"
+                    app:srcCompat="@drawable/sample_avatar" />
+            </androidx.cardview.widget.CardView>
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_marginStart="35dp"
+                android:tint="@color/brand_color"
+                android:translationZ="1000dp"
+                android:layout_gravity="end|bottom"
+                app:srcCompat="@drawable/ic_info" />
+
+        </FrameLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginHorizontal="30dp">
+            
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/masterFullName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Алина"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:fontFamily="@font/finlandica_regular" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/masterRole"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Перманентный макияж, Brow мастер"
+                android:textColor="@color/gray"
+                android:textSize="16sp"
+                android:fontFamily="@font/finlandica_regular" />
+            
+        </LinearLayout>
+        
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_gravity="center"
+            android:tint="@color/gray"
+           app:srcCompat="@drawable/arrow_right" />
+
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>

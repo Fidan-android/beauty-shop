@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">Beauty Club</string>
+    <string name="title_home">Главная</string>
+    <string name="title_nails">Услуги</string>
+    <string name="title_profile">Профиль</string>
+    <string name="title_master">Мастера</string>
+    <string name="need_sign_up">We need you to sign up</string>
+    <string name="enter_login">Введите логин</string>
+    <string name="enter_password">Введите пароль</string>
+    <string name="sign_in">Авторизоваться</string>
+    <string name="register_text">У вас еще нет аккаунта? Зарегистрируйтесь</string>
+    <string name="enter_email">Введите почту</string>
+    <string name="enter_first_name">Введите фамилию</string>
+    <string name="enter_second_name">Введите имя</string>
+    <string name="enter_repeat_password">Повторите пароль</string>
+    <string name="sign_up">Зарегистрироваться</string>
+    <string name="title_back">Назад</string>
+    <string name="address">Адрес:</string>
+    <string name="contacts">Наши контакты:</string>
+    <string name="graphics">Ежедневно с 10:00 до 21:00</string>
+    <string name="our_services">Наши услуги</string>
+    <string name="hair_care">Уход за волосами</string>
+    <string name="eyelash_extensions">Наращивание ресниц</string>
+    <string name="nails">Маникюр</string>
+    <string name="eyebrow_design">Дизайн бровей</string>
+    <string name="login_text">Уже есть аккаунт? Войдите</string>
+</resources>
