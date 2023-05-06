@@ -27,15 +27,31 @@
                 android:layout_height="match_parent"
                 android:background="#66000000" />
 
-            <androidx.appcompat.widget.AppCompatTextView
+            <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal|top"
                 android:layout_marginTop="20dp"
-                android:fontFamily="@font/charlington"
-                android:text="Салон красоты Beauty Club"
-                android:textColor="@color/white"
-                android:textSize="24sp" />
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_gravity="center">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/charlington"
+                    android:text="Beauty Club"
+                    android:textColor="@color/white"
+                    android:textSize="28sp" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/charlington"
+                    android:text="Салон красоты "
+                    android:textColor="@color/white"
+                    android:textSize="18sp" />
+            </LinearLayout>
         </FrameLayout>
 
         <androidx.appcompat.widget.AppCompatTextView
