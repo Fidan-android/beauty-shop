@@ -40,7 +40,14 @@ class RegistrationViewModel : ViewModel(), IRegistrationViewModel {
         isProgress.value = true
         MainScope().launch(Dispatchers.IO) {
             val response =
-                ApiHelper.registration(RegistrationRequest(login, firstName, name, password))
+                ApiHelper.registration(
+                    RegistrationRequest(
+                        email = login,
+                        firstName = firstName,
+                        name = name,
+                        password = password
+                    )
+                )
 
             when (response.message) {
                 "success" -> isSuccess.postValue("Регистрация прошла успешно")
