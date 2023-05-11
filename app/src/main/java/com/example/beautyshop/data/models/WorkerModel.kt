@@ -2,7 +2,7 @@ package com.example.beautyshop.data.models
 
 import com.google.gson.annotations.SerializedName
 
-data class WorkersModel(
+data class WorkerModel(
     @SerializedName("id") val id: Int,
     @SerializedName("first_name") val family: String,
     @SerializedName("middle_name") val name: String,

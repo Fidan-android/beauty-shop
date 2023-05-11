@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="CustomCalendarView">
+        <attr name="titleColor" format="color" />
+        <attr name="textAppearanceColor" format="color" />
+        <attr name="focusedDayColor" format="color" />
+        <attr name="focusedTextDayColor" format="color" />
+        <attr name="workingDaysOfWeekTextColor" format="color" />
+        <attr name="weekendDaysOfWeekTextColor" format="color" />
+        <attr name="multiSelection" format="boolean" />
+    </declare-styleable>
+</resources>

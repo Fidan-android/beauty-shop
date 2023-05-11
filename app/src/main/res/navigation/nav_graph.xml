@@ -9,20 +9,34 @@
         android:id="@+id/homeFragment"
         android:name="com.example.beautyshop.presentation.user.home.HomeFragment"
         android:label="HomeFragment"
-        tools:layout="@layout/fragment_home"/>
+        tools:layout="@layout/fragment_home" />
     <fragment
         android:id="@+id/workersFragment"
-        android:name="com.example.beautyshop.presentation.user.workers.WorkersFragment"
-        android:label="WorkersFragment"
-        tools:layout="@layout/fragment_workers"/>
+        android:name="com.example.beautyshop.presentation.user.workers.WorkerFragment"
+        android:label="WorkerFragment"
+        tools:layout="@layout/fragment_worker" />
     <fragment
         android:id="@+id/servicesFragment"
-        android:name="com.example.beautyshop.presentation.user.services.ServicesFragment"
-        android:label="ServicesFragment"
-        tools:layout="@layout/fragment_services"/>
+        android:name="com.example.beautyshop.presentation.user.services.ServiceFragment"
+        android:label="ServiceFragment"
+        tools:layout="@layout/fragment_service">
+        <action
+            android:id="@+id/action_servicesFragment_to_servicePageFragment"
+            app:destination="@id/servicePageFragment" />
+    </fragment>
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.example.beautyshop.presentation.user.profile.ProfileFragment"
         android:label="ProfileFragment"
-        tools:layout="@layout/fragment_profile"/>
+        tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/servicePageFragment"
+        android:name="com.example.beautyshop.presentation.user.service_page.ServicePageFragment"
+        android:label="ServicePageFragment"
+        tools:layout="@layout/fragment_service_page">
+        <argument
+            android:name="serviceId"
+            app:argType="integer" />
+    </fragment>
+
 </navigation>

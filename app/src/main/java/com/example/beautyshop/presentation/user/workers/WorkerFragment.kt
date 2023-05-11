@@ -7,21 +7,20 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.beautyshop.conventions.RenderViewType
-import com.example.beautyshop.data.models.WorkersModel
-import com.example.beautyshop.databinding.FragmentLoginBinding
-import com.example.beautyshop.databinding.FragmentWorkersBinding
+import com.example.beautyshop.data.models.WorkerModel
+import com.example.beautyshop.databinding.FragmentWorkerBinding
 import com.example.beautyshop.presentation.adapters.RenderAdapter
 import com.example.beautyshop.presentation.auth.LoginViewModel
 
-class WorkersFragment: Fragment() {
+class WorkerFragment : Fragment() {
 
-    private var _binding: FragmentWorkersBinding? = null
+    private var _binding: FragmentWorkerBinding? = null
     private val binding get() = _binding!!
     private val viewModel by lazy {
         ViewModelProvider(this)[LoginViewModel::class.java]
     }
 
-    private val adapter: RenderAdapter<WorkersModel> by lazy {
+    private val adapter: RenderAdapter<WorkerModel> by lazy {
         RenderAdapter(
             RenderViewType.WorkersViewType.viewType,
             object : RenderAdapter.IItemClickListener {
@@ -36,7 +35,7 @@ class WorkersFragment: Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentWorkersBinding.inflate(layoutInflater)
+        _binding = FragmentWorkerBinding.inflate(layoutInflater)
         return binding.root
     }
 
@@ -45,11 +44,11 @@ class WorkersFragment: Fragment() {
         binding.rvWorkers.adapter = adapter
         adapter.onUpdateItems(
             mutableListOf(
-                WorkersModel(0, "", "", "", ""),
-                WorkersModel(1, "", "", "", ""),
-                WorkersModel(2, "", "", "", ""),
-                WorkersModel(3, "", "", "", ""),
-                WorkersModel(4, "", "", "", "")
+                WorkerModel(0, "", "", "", ""),
+                WorkerModel(1, "", "", "", ""),
+                WorkerModel(2, "", "", "", ""),
+                WorkerModel(3, "", "", "", ""),
+                WorkerModel(4, "", "", "", "")
             )
         )
     }

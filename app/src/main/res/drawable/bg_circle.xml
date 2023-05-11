@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:color="@color/white" android:state_activated="true">
+        <shape android:shape="oval">
+            <solid android:color="@color/green" />
+        </shape>
+    </item>
+    <item android:color="@color/gray" android:state_enabled="false">
+        <shape android:shape="oval">
+            <solid android:color="@android:color/transparent" />
+        </shape>
+    </item>
+    <item android:color="@color/brand_color">
+        <shape android:shape="oval">
+            <solid android:color="@android:color/transparent" />
+        </shape>
+    </item>
+</selector>

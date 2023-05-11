@@ -6,8 +6,8 @@ import android.net.Network
 import android.net.NetworkCapabilities
 import android.net.NetworkRequest
 import com.example.beautyshop.data.AuthorizationInterceptor
-import com.example.beautyshop.data.Properties
 import com.example.beautyshop.data.IInternetConnected
+import com.example.beautyshop.data.Properties
 import com.google.gson.Gson
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.MainScope
@@ -37,7 +37,7 @@ object ApiManager {
                 .create()
             apiRetrofit = Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create(gson))
-                .baseUrl("http://n931333e.beget.tech/api/v3/")
+                .baseUrl("http://a91745zj.beget.tech/api/v1/")
                 .client(initOkHttpClient())
                 .build()
         }

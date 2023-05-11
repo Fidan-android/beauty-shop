@@ -5,14 +5,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.isGone
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.beautyshop.MainActivity
+import com.example.beautyshop.conventions.SharedKeys
+import com.example.beautyshop.data.IInternetConnected
 import com.example.beautyshop.data.api.ApiManager
 import com.example.beautyshop.databinding.FragmentLoginBinding
-import com.example.beautyshop.data.IInternetConnected
+import com.example.beautyshop.helper.saveShared
 import com.example.beautyshop.presentation.auth.register.RegistrationFragment
 
 class LoginFragment : Fragment() {
@@ -56,8 +56,14 @@ class LoginFragment : Fragment() {
         }
 
         viewModel.onGetIsSuccess().observe(viewLifecycleOwner) {
-            startActivity(Intent(requireContext(), MainActivity::class.java))
-            requireActivity().finish()
+            if (it.isNotEmpty()) {
+                requireContext().saveShared(SharedKeys.AccessToken, it)
+                startActivity(Intent(requireContext(), MainActivity::class.java))
+                requireActivity().finish()
+            }
+        }
+        viewModel.onGetIsError().observe(viewLifecycleOwner) {
+            binding.passwordLayout.error = it
         }
 
         binding.btnAuthorize.setOnClickListener {

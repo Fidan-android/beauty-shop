@@ -1,7 +1,7 @@
 package com.example.beautyshop.presentation.adapters
 
 import androidx.recyclerview.widget.DiffUtil
-import com.example.beautyshop.data.models.WorkersModel
+import com.example.beautyshop.data.models.WorkerModel
 
 class CustomDiffUtil<T>(
     private val viewType: Int,
@@ -11,8 +11,8 @@ class CustomDiffUtil<T>(
 
     override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
         return when (viewType) {
-            0 -> (oldProductList[oldItemPosition] as WorkersModel).id !=
-                    (newProductList[newItemPosition] as WorkersModel).id
+            0 -> (oldProductList[oldItemPosition] as WorkerModel).id !=
+                    (newProductList[newItemPosition] as WorkerModel).id
             else -> true
         }
     }
@@ -24,8 +24,8 @@ class CustomDiffUtil<T>(
     override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
         return when (viewType) {
             0 ->
-                (oldProductList[oldItemPosition] as WorkersModel).id !=
-                        (newProductList[newItemPosition] as WorkersModel).id
+                (oldProductList[oldItemPosition] as WorkerModel).id !=
+                        (newProductList[newItemPosition] as WorkerModel).id
             else -> true
         }
     }
