@@ -46,6 +46,7 @@ class AddWorkerDialog(
 
         binding.btnAddMaster.setOnClickListener {
             delegate.onAccept()
+            dismissAllowingStateLoss()
         }
     }
 
