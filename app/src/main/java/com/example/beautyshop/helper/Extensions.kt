@@ -2,6 +2,9 @@ package com.example.beautyshop.helper
 
 import android.content.Context
 import com.example.beautyshop.conventions.SharedKeys
+import java.io.File
+import java.io.InputStream
+import java.text.SimpleDateFormat
 import java.util.*
 
 inline fun <reified T> Context.shared(sharedKey: SharedKeys): T {
@@ -53,4 +56,20 @@ fun Calendar.compareFirstDayOfWeek(): Int {
         Calendar.SUNDAY -> 6
         else -> 0
     }
+}
+
+fun File.copyInputStreamToFile(inputStream: InputStream) {
+    this.outputStream().use { fileOut ->
+        inputStream.copyTo(fileOut)
+    }
+}
+
+fun Date.toIso(locale: Locale = Locale.getDefault(), timeZone: TimeZone? = null): String {
+    val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ", locale)
+    if (timeZone != null) {
+        simpleDateFormat.timeZone = timeZone
+    }
+    return simpleDateFormat
+        .format(this)
+        .replace("GMT", "")
 }

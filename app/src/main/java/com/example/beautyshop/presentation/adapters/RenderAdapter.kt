@@ -6,13 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatTextView
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.beautyshop.R
 import com.example.beautyshop.conventions.RenderViewType
+import com.example.beautyshop.data.models.ProfileModel
 import com.example.beautyshop.data.models.SectionModel
 import com.example.beautyshop.data.models.ServiceModel
-import com.example.beautyshop.data.models.WorkerModel
 import com.google.android.material.card.MaterialCardView
 
 
@@ -29,14 +29,22 @@ class RenderAdapter<T>(private val viewType: Int, private val delegate: IItemCli
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
-            0 -> WorkersViewHolder(
+            RenderViewType.WorkersViewType.viewType -> WorkersViewHolder(
                 LayoutInflater.from(parent.context).inflate(R.layout.master_cell, parent, false)
             )
-            1 -> SectionsViewHolder(
+            RenderViewType.SectionsViewType.viewType -> SectionsViewHolder(
                 LayoutInflater.from(parent.context).inflate(R.layout.section_cell, parent, false)
             )
-            2 -> ServicesViewHolder(
+            RenderViewType.ServicesViewType.viewType -> ServicesViewHolder(
                 LayoutInflater.from(parent.context).inflate(R.layout.service_cell, parent, false)
+            )
+            RenderViewType.AdminSectionsViewType.viewType -> AdminSectionsViewHolder(
+                LayoutInflater.from(parent.context)
+                    .inflate(R.layout.admin_section_cell, parent, false)
+            )
+            RenderViewType.AdminSectionServicesViewType.viewType -> AdminSectionServicesViewHolder(
+                LayoutInflater.from(parent.context)
+                    .inflate(R.layout.admin_service_cell, parent, false)
             )
             else -> throw IllegalArgumentException("Unknown view type")
         }
@@ -45,7 +53,7 @@ class RenderAdapter<T>(private val viewType: Int, private val delegate: IItemCli
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
             is WorkersViewHolder -> holder.onBind(
-                renderList[position] as WorkerModel,
+                renderList[position] as ProfileModel,
                 delegate::onClick
             )
             is SectionsViewHolder -> holder.onBind(
@@ -56,6 +64,14 @@ class RenderAdapter<T>(private val viewType: Int, private val delegate: IItemCli
                 renderList[position] as ServiceModel,
                 delegate::onClick
             )
+            is AdminSectionsViewHolder -> holder.onBind(
+                renderList[position] as SectionModel,
+                delegate::onClick
+            )
+            is AdminSectionServicesViewHolder -> holder.onBind(
+                renderList[position] as ServiceModel,
+                delegate::onClick
+            )
         }
         holder.setIsRecyclable(false)
     }
@@ -63,11 +79,9 @@ class RenderAdapter<T>(private val viewType: Int, private val delegate: IItemCli
     override fun getItemCount() = renderList.size
 
     override fun onUpdateItems(list: MutableList<T>) {
-        val diffCallback = CustomDiffUtil(viewType, renderList, list)
-        val diffResult = DiffUtil.calculateDiff(diffCallback)
         renderList.clear()
         renderList.addAll(list)
-        diffResult.dispatchUpdatesTo(this)
+        notifyDataSetChanged()
     }
 
     open class WorkersViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -78,18 +92,18 @@ class RenderAdapter<T>(private val viewType: Int, private val delegate: IItemCli
         private val masterRole: AppCompatTextView = itemView.findViewById(R.id.masterRole)
 
         @SuppressLint("SetTextI18n")
-        open fun onBind(model: WorkerModel, onClick: (Int) -> Unit) {
-            /*masterFullName.text = model.family + " " + model.name + " " + model.patronymic.first() + "."
-            masterRole.text = model.workerRole
+        open fun onBind(model: ProfileModel, onClick: (Int) -> Unit) {
+            masterFullName.text =
+                model.firstName + " " + model.name
             Glide
                 .with(itemView.context)
-                .load(model.posterUrlPreview)
+                .load(model.image)
                 .centerCrop()
-                .error(R.drawable.logo)
-                .into(logoFilm)*/
+                .error(R.drawable.sample_avatar)
+                .into(masterAvatar)
 
             rootView.setOnClickListener {
-                onClick(model.id)
+                onClick(model.id!!)
             }
         }
     }
@@ -130,6 +144,39 @@ class RenderAdapter<T>(private val viewType: Int, private val delegate: IItemCli
 
             rootView.setOnClickListener {
                 onClick(model.id)
+            }
+        }
+    }
+
+    open class AdminSectionsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+
+        private val rootView: MaterialCardView = itemView.findViewById(R.id.rootView)
+        private val sectionName: AppCompatTextView = itemView.findViewById(R.id.sectionName)
+
+        @SuppressLint("SetTextI18n")
+        open fun onBind(model: SectionModel, onClick: (Int) -> Unit) {
+            sectionName.text = model.sectionName
+
+            rootView.setOnClickListener {
+                onClick(model.id)
+            }
+        }
+    }
+
+    open class AdminSectionServicesViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        private val serviceName: AppCompatTextView = itemView.findViewById(R.id.serviceName)
+        private val btnEditService: AppCompatImageView = itemView.findViewById(R.id.btnEditService)
+        private val btnDeleteService: AppCompatImageView =
+            itemView.findViewById(R.id.btnDeleteService)
+
+        @SuppressLint("SetTextI18n")
+        open fun onBind(model: ServiceModel, onClick: (Int) -> Unit) {
+            serviceName.text = model.serviceName
+            btnEditService.setOnClickListener {
+                onClick(model.id)
+            }
+            btnDeleteService.setOnClickListener {
+                onClick(model.id - 9999)
             }
         }
     }

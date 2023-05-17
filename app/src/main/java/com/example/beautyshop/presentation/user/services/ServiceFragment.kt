@@ -10,8 +10,6 @@ import androidx.navigation.NavOptions
 import androidx.navigation.fragment.NavHostFragment
 import com.example.beautyshop.conventions.RenderViewType
 import com.example.beautyshop.data.models.SectionModel
-import com.example.beautyshop.data.models.ServiceModel
-import com.example.beautyshop.data.models.WorkerModel
 import com.example.beautyshop.databinding.FragmentServiceBinding
 import com.example.beautyshop.presentation.adapters.RenderAdapter
 
@@ -52,84 +50,13 @@ class ServiceFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.rvSections.adapter = adapter
-        adapter.onUpdateItems(
-            mutableListOf(
-                SectionModel(
-                    0, "Ресницы", mutableListOf(
-                        ServiceModel(
-                            1,
-                            "Увеличение объема",
-                            WorkerModel(0, "", "", "", ""),
-                            299f,
-                            2
-                        ),
-                        ServiceModel(
-                            2,
-                            "Увеличение объема",
-                            WorkerModel(0, "", "", "", ""),
-                            299f,
-                            2
-                        ),
-                        ServiceModel(
-                            3,
-                            "Увеличение объема",
-                            WorkerModel(0, "", "", "", ""),
-                            299f,
-                            2
-                        ),
-                    )
-                ),
-                SectionModel(
-                    1, "Волосы", mutableListOf(
-                        ServiceModel(
-                            1,
-                            "Увеличение объема",
-                            WorkerModel(0, "", "", "", ""),
-                            299f,
-                            2
-                        ),
-                        ServiceModel(
-                            2,
-                            "Увеличение объема",
-                            WorkerModel(0, "", "", "", ""),
-                            299f,
-                            2
-                        ),
-                        ServiceModel(
-                            3,
-                            "Увеличение объема",
-                            WorkerModel(0, "", "", "", ""),
-                            299f,
-                            2
-                        ),
-                    )
-                ),
-                SectionModel(
-                    2, "Губы", mutableListOf(
-                        ServiceModel(
-                            1,
-                            "Увеличение объема",
-                            WorkerModel(0, "", "", "", ""),
-                            299f,
-                            2
-                        ),
-                        ServiceModel(
-                            2,
-                            "Увеличение объема",
-                            WorkerModel(0, "", "", "", ""),
-                            299f,
-                            2
-                        ),
-                        ServiceModel(
-                            3,
-                            "Увеличение объема",
-                            WorkerModel(0, "", "", "", ""),
-                            299f,
-                            2
-                        ),
-                    )
-                ),
-            )
-        )
+    }
+
+    override fun onStart() {
+        super.onStart()
+        viewModel.onGetData().observe(viewLifecycleOwner) {
+            adapter.onUpdateItems(it)
+        }
+        viewModel.onLoadData()
     }
 }

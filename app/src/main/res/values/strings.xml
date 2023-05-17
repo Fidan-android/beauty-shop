@@ -27,4 +27,20 @@
     <string name="more"><u>Подробнее...</u></string>
     <string name="icon_ruble">₽,\ </string>
     <string name="date_time">Дата и время</string>
+    <string name="title_section">Секции</string>
+    <string name="create_new_section">Создать новый раздел</string>
+    <string name="enter_section_name">Введите секцию</string>
+    <string name="add_section">Добавить секцию</string>
+    <string name="save_section">Сохранить секцию</string>
+    <string name="add_master">Добавить мастера</string>
+    <string name="create_new_service">Создать новую услугу</string>
+    <string name="add_service">Добавить услугу</string>
+    <string name="enter_service_name">Введите услугу</string>
+    <string name="enter_service_price">Введите цену</string>
+    <string name="enter_service_time">Введите время</string>
+    <string name="adding_master_question">Вы действительно хотите на значить мастером?</string>
+    <string-array name="times">
+        <item>часы</item>
+        <item>минуты</item>
+    </string-array>
 </resources>

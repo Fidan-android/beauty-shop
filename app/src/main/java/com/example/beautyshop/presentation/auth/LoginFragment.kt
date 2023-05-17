@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.example.beautyshop.MainActivity
+import com.example.beautyshop.presentation.root.MainActivity
 import com.example.beautyshop.conventions.SharedKeys
 import com.example.beautyshop.data.IInternetConnected
 import com.example.beautyshop.data.api.ApiManager

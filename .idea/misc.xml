@@ -8,8 +8,21 @@
         <entry key="..\:/Users/gumfi/AndroidStudioProjects/beauty-shop/app/src/main/res/drawable/bg_button.xml" value="0.1895" />
         <entry key="..\:/Users/gumfi/AndroidStudioProjects/beauty-shop/app/src/main/res/drawable/bg_circle.xml" value="0.1895" />
         <entry key="..\:/Users/gumfi/AndroidStudioProjects/beauty-shop/app/src/main/res/drawable/calendar_text_color.xml" value="0.1895" />
+        <entry key="..\:/Users/gumfi/AndroidStudioProjects/beauty-shop/app/src/main/res/layout/activity_main.xml" value="0.17407407407407408" />
+        <entry key="..\:/Users/gumfi/AndroidStudioProjects/beauty-shop/app/src/main/res/layout/admin_section_cell.xml" value="0.23055555555555557" />
+        <entry key="..\:/Users/gumfi/AndroidStudioProjects/beauty-shop/app/src/main/res/layout/admin_service_cell.xml" value="0.2" />
         <entry key="..\:/Users/gumfi/AndroidStudioProjects/beauty-shop/app/src/main/res/layout/calendar_day_cell.xml" value="0.25" />
         <entry key="..\:/Users/gumfi/AndroidStudioProjects/beauty-shop/app/src/main/res/layout/custom_calendar_view.xml" value="0.25" />
+        <entry key="..\:/Users/gumfi/AndroidStudioProjects/beauty-shop/app/src/main/res/layout/dialog_add_section.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/gumfi/AndroidStudioProjects/beauty-shop/app/src/main/res/layout/dialog_add_service.xml" value="0.264" />
+        <entry key="..\:/Users/gumfi/AndroidStudioProjects/beauty-shop/app/src/main/res/layout/dialog_add_worker.xml" value="0.264" />
+        <entry key="..\:/Users/gumfi/AndroidStudioProjects/beauty-shop/app/src/main/res/layout/dialog_add_workers.xml" value="0.264" />
+        <entry key="..\:/Users/gumfi/AndroidStudioProjects/beauty-shop/app/src/main/res/layout/dialog_page_section.xml" value="0.264" />
+        <entry key="..\:/Users/gumfi/AndroidStudioProjects/beauty-shop/app/src/main/res/layout/dialog_section_services.xml" value="0.2" />
+        <entry key="..\:/Users/gumfi/AndroidStudioProjects/beauty-shop/app/src/main/res/layout/fragment_admin_profile.xml" value="0.17407407407407408" />
+        <entry key="..\:/Users/gumfi/AndroidStudioProjects/beauty-shop/app/src/main/res/layout/fragment_admin_section.xml" value="0.2" />
+        <entry key="..\:/Users/gumfi/AndroidStudioProjects/beauty-shop/app/src/main/res/layout/fragment_admin_service.xml" value="0.17407407407407408" />
+        <entry key="..\:/Users/gumfi/AndroidStudioProjects/beauty-shop/app/src/main/res/layout/fragment_admin_worker.xml" value="0.17407407407407408" />
         <entry key="..\:/Users/gumfi/AndroidStudioProjects/beauty-shop/app/src/main/res/layout/fragment_home.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/gumfi/AndroidStudioProjects/beauty-shop/app/src/main/res/layout/fragment_login.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/gumfi/AndroidStudioProjects/beauty-shop/app/src/main/res/layout/fragment_profile.xml" value="0.25" />
@@ -19,9 +32,12 @@
         <entry key="..\:/Users/gumfi/AndroidStudioProjects/beauty-shop/app/src/main/res/layout/fragment_services.xml" value="0.25" />
         <entry key="..\:/Users/gumfi/AndroidStudioProjects/beauty-shop/app/src/main/res/layout/fragment_workers.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/gumfi/AndroidStudioProjects/beauty-shop/app/src/main/res/layout/master_cell.xml" value="0.25" />
+        <entry key="..\:/Users/gumfi/AndroidStudioProjects/beauty-shop/app/src/main/res/layout/section_cell.xml" value="0.17407407407407408" />
         <entry key="..\:/Users/gumfi/AndroidStudioProjects/beauty-shop/app/src/main/res/layout/section_opened_cell.xml" value="0.25" />
         <entry key="..\:/Users/gumfi/AndroidStudioProjects/beauty-shop/app/src/main/res/layout/service_cell.xml" value="0.25" />
         <entry key="..\:/Users/gumfi/AndroidStudioProjects/beauty-shop/app/src/main/res/layout/time_cell.xml" value="0.25" />
+        <entry key="..\:/Users/gumfi/AndroidStudioProjects/beauty-shop/app/src/main/res/menu/admin_bootom_menu.xml" value="0.17407407407407408" />
+        <entry key="..\:/Users/gumfi/AndroidStudioProjects/beauty-shop/app/src/main/res/menu/user_bottom_menu.xml" value="0.17407407407407408" />
       </map>
     </option>
   </component>
