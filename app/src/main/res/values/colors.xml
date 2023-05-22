@@ -9,4 +9,7 @@
     <color name="pink">#E88B9A</color>
     <color name="gray">#606060</color>
     <color name="bg">#FEFCED</color>
+    <color name="green">#4AE15A</color>
+    <color name="dialog_background">#BF000000</color>
+    <color name="red">#F53021</color>
 </resources>

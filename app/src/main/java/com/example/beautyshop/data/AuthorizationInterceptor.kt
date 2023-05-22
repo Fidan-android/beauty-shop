@@ -1,10 +1,10 @@
 package com.example.beautyshop.data
 
-import android.content.Context.MODE_PRIVATE
 import android.util.Log
 import com.example.beautyshop.App
 import com.example.beautyshop.BuildConfig
-import com.example.beautyshop.R
+import com.example.beautyshop.conventions.SharedKeys
+import com.example.beautyshop.helper.shared
 import okhttp3.*
 import okio.Buffer
 import java.nio.charset.Charset
@@ -14,10 +14,7 @@ class AuthorizationInterceptor : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         val request = chain.request()
         val response: Response
-        val token: String = App.appContext.getSharedPreferences(
-            App.appContext.getString(R.string.app_name),
-            MODE_PRIVATE
-        ).getString("token", "") ?: ""
+        val token: String = App.appContext.shared(SharedKeys.AccessToken)
         try {
             val newRequest = request
                 .newBuilder()

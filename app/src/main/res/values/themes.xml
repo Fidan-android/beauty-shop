@@ -1,14 +1,50 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <!-- Base application theme. -->
-    <style name="Theme.BeautyShop" parent="Theme.MaterialComponents.DayNight.DarkActionBar"/>
+    <style name="Theme.BeautyShop" parent="Theme.MaterialComponents.DayNight.DarkActionBar" />
 
     <style name="BottomNavigationView" parent="@style/TextAppearance.AppCompat.Caption">
         <item name="android:textSize">11sp</item>
     </style>
+
     <style name="BottomNavigationView.Active" parent="@style/TextAppearance.AppCompat.Caption">
         <item name="android:textSize">13sp</item>
     </style>
+
     <style name="ContentLoader">
         <item name="colorAccent">@color/beige</item>
+    </style>
+
+    <style name="RadioButton">
+        <item name="colorAccent">@color/brand_color</item>
+    </style>
+
+    <style name="CustomCalendar">
+        <item name="colorAccent">@color/green</item>
+    </style>
+
+    <style name="Widget.CalendarView.Custom" parent="android:Widget.CalendarView">
+        <item name="colorAccent">@color/green</item>
+        <item name="android:focusedMonthDateColor">@color/green</item>
+        <item name="android:weekDayTextAppearance">@color/gray</item>
+        <item name="android:dateTextAppearance">@color/gray</item>
+    </style>
+
+    <style name="CalenderViewCustom" parent="Theme.AppCompat">
+        <item name="android:colorControlActivated">@color/green</item>
+        <item name="android:textColorPrimaryInverse">@color/gray</item>
+    </style>
+
+    <style name="CalenderViewDateCustomText" parent="android:TextAppearance.DeviceDefault.Small">
+        <item name="android:textColor">@drawable/calendar_text_color</item>
+    </style>
+
+    <style name="CalenderViewWeekCustomText" parent="android:TextAppearance.DeviceDefault.Small">
+        <item name="android:textColor">@color/gray</item>
+    </style>
+
+    <style name="FullScreenDialogStyle" parent="Theme.BeautyShop">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">false</item>
+        <item name="android:windowIsFloating">false</item>
     </style>
 </resources>

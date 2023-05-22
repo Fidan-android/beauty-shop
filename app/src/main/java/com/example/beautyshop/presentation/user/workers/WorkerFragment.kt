@@ -7,21 +7,19 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.beautyshop.conventions.RenderViewType
-import com.example.beautyshop.data.models.WorkersModel
-import com.example.beautyshop.databinding.FragmentLoginBinding
-import com.example.beautyshop.databinding.FragmentWorkersBinding
+import com.example.beautyshop.data.models.ProfileModel
+import com.example.beautyshop.databinding.FragmentWorkerBinding
 import com.example.beautyshop.presentation.adapters.RenderAdapter
-import com.example.beautyshop.presentation.auth.LoginViewModel
 
-class WorkersFragment: Fragment() {
+class WorkerFragment : Fragment() {
 
-    private var _binding: FragmentWorkersBinding? = null
+    private var _binding: FragmentWorkerBinding? = null
     private val binding get() = _binding!!
     private val viewModel by lazy {
-        ViewModelProvider(this)[LoginViewModel::class.java]
+        ViewModelProvider(this)[WorkerViewModel::class.java]
     }
 
-    private val adapter: RenderAdapter<WorkersModel> by lazy {
+    private val adapter: RenderAdapter<ProfileModel> by lazy {
         RenderAdapter(
             RenderViewType.WorkersViewType.viewType,
             object : RenderAdapter.IItemClickListener {
@@ -36,21 +34,21 @@ class WorkersFragment: Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentWorkersBinding.inflate(layoutInflater)
+        _binding = FragmentWorkerBinding.inflate(layoutInflater)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.rvWorkers.adapter = adapter
-        adapter.onUpdateItems(
-            mutableListOf(
-                WorkersModel(0, "", "", "", ""),
-                WorkersModel(1, "", "", "", ""),
-                WorkersModel(2, "", "", "", ""),
-                WorkersModel(3, "", "", "", ""),
-                WorkersModel(4, "", "", "", "")
-            )
-        )
+    }
+
+    override fun onStart() {
+        super.onStart()
+
+        viewModel.onGetData().observe(viewLifecycleOwner) {
+            adapter.onUpdateItems(it)
+        }
+        viewModel.onLoadData()
     }
 }

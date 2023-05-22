@@ -19,11 +19,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/bg_bottom_view"
+        android:visibility="gone"
         app:itemIconTint="@drawable/bv_icons_selector"
-        app:menu="@menu/bottom_menu"
         app:itemTextAppearanceActive="@style/BottomNavigationView.Active"
         app:itemTextAppearanceInactive="@style/BottomNavigationView"
         app:itemTextColor="@drawable/bv_icons_selector"
-        app:labelVisibilityMode="labeled" />
+        app:labelVisibilityMode="labeled"
+        app:menu="@menu/user_bottom_menu" />
 
 </LinearLayout>

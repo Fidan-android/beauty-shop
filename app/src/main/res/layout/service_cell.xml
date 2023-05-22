@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/rootView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:minHeight="70dp"
+    app:cardElevation="6dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingVertical="10dp">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:paddingHorizontal="15dp"
+            android:paddingVertical="8dp">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/serviceName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/finlandica_regular"
+                android:text="Ламинирование ресниц + окрашинвание бровей"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/servicePrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/finlandica_regular"
+                    android:text="от "
+                    android:textColor="@color/gray"
+                    android:textSize="15sp" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/finlandica_regular"
+                    android:text="@string/icon_ruble"
+                    android:textColor="@color/gray"
+                    android:textSize="15sp" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/serviceHours"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/finlandica_regular"
+                    android:text="3 час"
+                    android:textColor="@color/gray"
+                    android:textSize="15sp" />
+
+            </LinearLayout>
+
+            <!--<androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/showMore"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/finlandica_regular"
+                android:text="@string/more"
+                android:textColor="@color/brand_color"
+                android:textSize="17sp" />-->
+
+
+        </LinearLayout>
+
+        <RadioButton
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            android:layout_marginHorizontal="20dp"
+            android:checked="true"
+            android:theme="@style/RadioButton" />
+
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>
