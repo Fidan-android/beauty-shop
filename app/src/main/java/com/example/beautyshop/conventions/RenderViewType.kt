@@ -6,4 +6,6 @@ enum class RenderViewType(val viewType: Int) {
     ServicesViewType(2),
     AdminSectionsViewType(3),
     AdminSectionServicesViewType(4),
+    AppointmentsViewType(5),
+    MasterAppointmentsViewType(6),
 }

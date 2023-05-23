@@ -47,14 +47,14 @@
                 android:textSize="22sp"
                 android:textStyle="bold" />
         </FrameLayout>
-        
+
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/activeAppointments"
+            android:id="@+id/rvAppointments"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:itemCount="5"
+            android:layout_margin="20dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:listitem="@layout/appointment_cell"
-            android:layout_margin="20dp" />
+            tools:itemCount="5"
+            tools:listitem="@layout/master_appointment_cell" />
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>

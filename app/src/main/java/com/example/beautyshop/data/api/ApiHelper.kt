@@ -40,4 +40,8 @@ object ApiHelper {
 
     fun removeMaster(sectionMasterRequest: SectionMasterRequest) =
         apiService.removeMaster(sectionMasterRequest)
+
+    fun getAppointments() = apiService.getAppointments()
+    fun createAppointment() = apiService.createAppointment()
+    fun cancelAppointment(appointmentId: Int) = apiService.cancelAppointment(appointmentId)
 }

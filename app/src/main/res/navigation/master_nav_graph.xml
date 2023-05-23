@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/master_nav_graph"
+    app:startDestination="@id/masterWorkFragment">
+
+    <fragment
+        android:id="@+id/masterProfileFragment"
+        android:name="com.example.beautyshop.presentation.master.profile.MasterProfileFragment"
+        android:label="MasterProfileFragment"
+        tools:layout="@layout/fragment_master_profile"/>
+    <fragment
+        android:id="@+id/masterScheduleFragment"
+        android:name="com.example.beautyshop.presentation.master.schedules.ScheduleFragment"
+        android:label="ScheduleFragment"
+        tools:layout="@layout/fragment_schedule"/>
+    <fragment
+        android:id="@+id/masterWorkFragment"
+        android:name="com.example.beautyshop.presentation.master.works.WorkFragment"
+        android:label="WorkFragment"
+        tools:layout="@layout/fragment_work"/>
+</navigation>

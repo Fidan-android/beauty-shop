@@ -58,4 +58,13 @@ interface ApiService {
 
     @POST("services/delete/")
     fun removeService(@Body serviceRequest: EditServiceRequest): Call<MessageResponse>
+
+    @GET("appointments/")
+    fun getAppointments(): Call<AppointmentResponse>
+
+    @POST("appointments/")
+    fun createAppointment(): Call<MessageResponse>
+
+    @GET("appointments/cancel/")
+    fun cancelAppointment(@Query("appointment_id") appointmentId: Int): Call<MessageResponse>
 }

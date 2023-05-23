@@ -1,4 +1,4 @@
-package com.example.beautyshop.presentation.user.profile
+package com.example.beautyshop.presentation.master.profile
 
 import android.Manifest
 import android.annotation.SuppressLint
@@ -24,7 +24,8 @@ import com.example.beautyshop.R
 import com.example.beautyshop.conventions.RenderViewType
 import com.example.beautyshop.conventions.SharedKeys
 import com.example.beautyshop.data.models.AppointmentModel
-import com.example.beautyshop.databinding.FragmentProfileBinding
+import com.example.beautyshop.databinding.FragmentAdminProfileBinding
+import com.example.beautyshop.databinding.FragmentMasterProfileBinding
 import com.example.beautyshop.helper.copyInputStreamToFile
 import com.example.beautyshop.helper.removeShared
 import com.example.beautyshop.helper.toIso
@@ -35,25 +36,15 @@ import java.io.File
 import java.io.InputStream
 import java.util.*
 
-class ProfileFragment : Fragment() {
+class MasterProfileFragment : Fragment() {
 
-    private var _binding: FragmentProfileBinding? = null
+    private var _binding: FragmentMasterProfileBinding? = null
     private val binding get() = _binding!!
     private val viewModel by lazy {
-        ViewModelProvider(this)[ProfileViewModel::class.java]
+        ViewModelProvider(this)[MasterProfileViewModel::class.java]
     }
     private var galleryPermissionResultLauncher: ActivityResultLauncher<String>? = null
     private var openPictureResultLauncher: ActivityResultLauncher<String>? = null
-    private val adapter: RenderAdapter<AppointmentModel> by lazy {
-        RenderAdapter(
-            RenderViewType.AppointmentsViewType.viewType,
-            object : RenderAdapter.IItemClickListener {
-                override fun onClick(position: Int) {
-                    viewModel.onCancelAppointment(position)
-                }
-            }
-        )
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -66,19 +57,29 @@ class ProfileFragment : Fragment() {
             openPictureResultCallback
         )
     }
+    private val adapter: RenderAdapter<AppointmentModel> by lazy {
+        RenderAdapter(
+            RenderViewType.MasterAppointmentsViewType.viewType,
+            object : RenderAdapter.IItemClickListener {
+                override fun onClick(position: Int) {
+
+                }
+            }
+        )
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentProfileBinding.inflate(layoutInflater)
+        _binding = FragmentMasterProfileBinding.inflate(layoutInflater)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.activeAppointments.adapter = adapter
+        binding.rvAppointments.adapter = adapter
     }
 
     @SuppressLint("SetTextI18n")

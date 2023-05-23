@@ -1,4 +1,4 @@
-package com.example.beautyshop.presentation.user.profile
+package com.example.beautyshop.presentation.master.profile
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
@@ -13,7 +13,7 @@ import kotlinx.coroutines.launch
 import java.io.File
 import java.util.*
 
-class ProfileViewModel : ViewModel(), IProfileViewModel {
+class MasterProfileViewModel : ViewModel(), IMasterProfileViewModel {
     private val isProgress: MutableLiveData<Boolean> = MutableLiveData(false)
     private val profileLiveData: MutableLiveData<ProfileModel> = MutableLiveData()
     private val isErrorLiveData: MutableLiveData<String> = MutableLiveData()
@@ -52,14 +52,6 @@ class ProfileViewModel : ViewModel(), IProfileViewModel {
                     Base64.getEncoder().encodeToString(File(path).readBytes())
                 )
             ).execute()
-        }.invokeOnCompletion {
-            onLoadData()
-        }
-    }
-
-    override fun onCancelAppointment(appointmentId: Int) {
-        MainScope().launch(Dispatchers.IO) {
-            ApiHelper.cancelAppointment(appointmentId).execute()
         }.invokeOnCompletion {
             onLoadData()
         }

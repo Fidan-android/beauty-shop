@@ -21,12 +21,21 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.model.GlideUrl
 import com.bumptech.glide.load.model.LazyHeaders
 import com.example.beautyshop.R
+import com.example.beautyshop.conventions.RenderViewType
 import com.example.beautyshop.conventions.SharedKeys
+import com.example.beautyshop.data.models.AppointmentModel
+import com.example.beautyshop.data.models.SectionModel
+import com.example.beautyshop.data.models.ServiceModel
 import com.example.beautyshop.databinding.FragmentAdminProfileBinding
 import com.example.beautyshop.helper.copyInputStreamToFile
 import com.example.beautyshop.helper.removeShared
 import com.example.beautyshop.helper.toIso
+import com.example.beautyshop.presentation.adapters.RenderAdapter
+import com.example.beautyshop.presentation.admin.services.page.AddServiceDialog
+import com.example.beautyshop.presentation.admin.services.page.AddWorkersDialog
+import com.example.beautyshop.presentation.admin.services.page.SectionServicesDialog
 import com.example.beautyshop.presentation.auth.LoginActivity
+import com.example.beautyshop.presentation.root.MainActivity
 import com.google.android.material.snackbar.Snackbar
 import java.io.File
 import java.io.InputStream
@@ -41,6 +50,16 @@ class AdminProfileFragment : Fragment() {
     }
     private var galleryPermissionResultLauncher: ActivityResultLauncher<String>? = null
     private var openPictureResultLauncher: ActivityResultLauncher<String>? = null
+    private val adapter: RenderAdapter<AppointmentModel> by lazy {
+        RenderAdapter(
+            RenderViewType.AppointmentsViewType.viewType,
+            object : RenderAdapter.IItemClickListener {
+                override fun onClick(position: Int) {
+                    viewModel.onCancelAppointment(position)
+                }
+            }
+        )
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,6 +80,11 @@ class AdminProfileFragment : Fragment() {
     ): View {
         _binding = FragmentAdminProfileBinding.inflate(layoutInflater)
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.activeAppointments.adapter = adapter
     }
 
     @SuppressLint("SetTextI18n")
@@ -101,6 +125,9 @@ class AdminProfileFragment : Fragment() {
                     .error(R.drawable.sample_avatar)
                     .into(binding.imageProfile)
             }
+        }
+        viewModel.onGetAppointments().observe(viewLifecycleOwner) {
+            adapter.onUpdateItems(it)
         }
         viewModel.onGetIsError().observe(viewLifecycleOwner) {
             Snackbar.make(binding.root, it, Snackbar.LENGTH_SHORT).show()

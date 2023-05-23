@@ -95,7 +95,48 @@ class MainActivity : AppCompatActivity(), IMainActivity {
     }
 
     override fun onConfigureMaster() {
-        TODO("Not yet implemented")
+        binding.bottomMenu.menu.clear()
+        binding.bottomMenu.inflateMenu(R.menu.master_bootom_menu)
+        navHostFragment.navController.graph =
+            navHostFragment.navController.navInflater.inflate(R.navigation.master_nav_graph)
+        NavigationUI.setupWithNavController(binding.bottomMenu, navHostFragment.navController)
+        binding.bottomMenu.setOnItemSelectedListener { item ->
+            if (selectedItem == -1 || item.itemId != selectedItem) {
+                when (item.itemId) {
+                    R.id.masterWorkFragment -> {
+                        navHostFragment.navController.navigate(
+                            R.id.masterWorkFragment,
+                            Bundle(),
+                            NavOptions.Builder()
+                                .setPopUpTo(R.id.masterWorkFragment, true)
+                                .build()
+                        )
+                    }
+                    R.id.masterScheduleFragment -> {
+                        navHostFragment.navController.navigate(
+                            R.id.masterScheduleFragment,
+                            Bundle(),
+                            NavOptions.Builder()
+                                .setPopUpTo(R.id.masterScheduleFragment, true)
+                                .build()
+                        )
+                    }
+                    R.id.masterProfileFragment -> {
+                        navHostFragment.navController.navigate(
+                            R.id.masterProfileFragment,
+                            Bundle(),
+                            NavOptions.Builder()
+                                .setPopUpTo(R.id.masterProfileFragment, true)
+                                .build()
+                        )
+                    }
+                }
+                selectedItem = item.itemId
+                return@setOnItemSelectedListener true
+            } else {
+                return@setOnItemSelectedListener false
+            }
+        }
     }
 
     override fun onConfigureAdmin() {

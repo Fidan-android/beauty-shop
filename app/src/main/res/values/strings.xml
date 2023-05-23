@@ -39,6 +39,12 @@
     <string name="enter_service_price">Введите цену</string>
     <string name="enter_service_time">Введите время</string>
     <string name="adding_master_question">Вы действительно хотите на значить мастером?</string>
+    <string name="cancel">Отменить</string>
+    <string name="appointment_to">Запись к мастеру %1$s на %2$s</string>
+    <string name="service_name">Услуга: %1$s</string>
+    <string name="service_price">Цена: %1$s</string>
+    <string name="title_schedule">График</string>
+    <string name="title_work">Работы</string>
     <string-array name="times">
         <item>часы</item>
         <item>минуты</item>

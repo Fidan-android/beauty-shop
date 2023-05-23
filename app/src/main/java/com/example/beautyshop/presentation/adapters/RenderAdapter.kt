@@ -4,12 +4,14 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.beautyshop.R
 import com.example.beautyshop.conventions.RenderViewType
+import com.example.beautyshop.data.models.AppointmentModel
 import com.example.beautyshop.data.models.ProfileModel
 import com.example.beautyshop.data.models.SectionModel
 import com.example.beautyshop.data.models.ServiceModel
@@ -46,6 +48,10 @@ class RenderAdapter<T>(private val viewType: Int, private val delegate: IItemCli
                 LayoutInflater.from(parent.context)
                     .inflate(R.layout.admin_service_cell, parent, false)
             )
+            RenderViewType.AppointmentsViewType.viewType -> AppointmentsViewHolder(
+                LayoutInflater.from(parent.context)
+                    .inflate(R.layout.appointment_cell, parent, false)
+            )
             else -> throw IllegalArgumentException("Unknown view type")
         }
     }
@@ -70,6 +76,10 @@ class RenderAdapter<T>(private val viewType: Int, private val delegate: IItemCli
             )
             is AdminSectionServicesViewHolder -> holder.onBind(
                 renderList[position] as ServiceModel,
+                delegate::onClick
+            )
+            is AppointmentsViewHolder -> holder.onBind(
+                renderList[position] as AppointmentModel,
                 delegate::onClick
             )
         }
@@ -177,6 +187,27 @@ class RenderAdapter<T>(private val viewType: Int, private val delegate: IItemCli
             }
             btnDeleteService.setOnClickListener {
                 onClick(model.id - 9999)
+            }
+        }
+    }
+
+    open class AppointmentsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+
+        private val userName: AppCompatTextView = itemView.findViewById(R.id.userName)
+        private val serviceInfo: AppCompatTextView = itemView.findViewById(R.id.serviceInfo)
+        private val serviceName: AppCompatTextView = itemView.findViewById(R.id.serviceName)
+        private val servicePrice: AppCompatTextView = itemView.findViewById(R.id.servicePrice)
+        private val btnCancelAppointment: AppCompatButton = itemView.findViewById(R.id.servicePrice)
+
+        @SuppressLint("SetTextI18n")
+        open fun onBind(model: AppointmentModel, onClick: (Int) -> Unit) {
+            userName.text = model.user
+            serviceInfo.text = itemView.context.getString(R.string.appointment_to, model.master, model.scheduleTime)
+            serviceName.text = itemView.context.getString(R.string.service_name, model.serviceName)
+            servicePrice.text = itemView.context.getString(R.string.service_price, model.servicePrice)
+
+            btnCancelAppointment.setOnClickListener {
+                onClick(model.appointmentId)
             }
         }
     }
