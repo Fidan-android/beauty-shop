@@ -6,6 +6,7 @@ import java.io.File
 import java.io.InputStream
 import java.text.SimpleDateFormat
 import java.util.*
+import java.util.regex.Pattern
 
 inline fun <reified T> Context.shared(sharedKey: SharedKeys): T {
     return when (sharedKey.type) {
@@ -72,4 +73,10 @@ fun Date.toIso(locale: Locale = Locale.getDefault(), timeZone: TimeZone? = null)
     return simpleDateFormat
         .format(this)
         .replace("GMT", "")
+}
+fun String.isEmailValid(): Boolean {
+    val emailRegex = "^[_A-Za-z\\d-+]+(\\.[_A-Za-z\\d-]+)*@" + "[A-Za-z\\d-]+(\\.[A-Za-z\\d]+)*(\\.[A-Za-z]{2,})$"
+    val pattern = Pattern.compile(emailRegex)
+    val matcher = pattern.matcher(this)
+    return matcher.matches()
 }

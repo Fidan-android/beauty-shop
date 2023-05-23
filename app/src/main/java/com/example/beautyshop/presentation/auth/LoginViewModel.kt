@@ -4,10 +4,12 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.beautyshop.data.Properties
 import com.example.beautyshop.data.api.ApiHelper
+import com.example.beautyshop.helper.isEmailValid
 import com.example.beautyshop.models.LoginRequest
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
+import java.util.regex.Pattern
 
 class LoginViewModel : ViewModel(), ILoginViewModel {
 
@@ -22,6 +24,14 @@ class LoginViewModel : ViewModel(), ILoginViewModel {
     override fun onLogin(login: String, password: String) {
         if (login.isEmpty() || password.isEmpty()) {
             isErrorLiveData.value = "Все поля должны быть заполнены"
+            return
+        }
+        if (!login.isEmailValid()) {
+            isErrorLiveData.value = "Неверный формат почты"
+            return
+        }
+        if (password.length < 6) {
+            isErrorLiveData.value = "Пароль должен содержать не менее 6 символов"
             return
         }
         if (!Properties.isNetworkConnect) {

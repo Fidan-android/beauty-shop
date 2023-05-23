@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.beautyshop.data.Properties
 import com.example.beautyshop.data.api.ApiHelper
+import com.example.beautyshop.helper.isEmailValid
 import com.example.beautyshop.models.RegistrationRequest
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.MainScope
@@ -27,6 +28,14 @@ class RegistrationViewModel : ViewModel(), IRegistrationViewModel {
     ) {
         if (firstName.isEmpty() || name.isEmpty() || login.isEmpty() || password.isEmpty()) {
             isError.value = "Все поля должны быть заполнены"
+            return
+        }
+        if (!login.isEmailValid()) {
+            isError.value = "Неверный формат почты"
+            return
+        }
+        if (password.length < 6) {
+            isError.value = "Пароль должен содержать не менее 6 символов"
             return
         }
         if (password != repeatPassword) {
