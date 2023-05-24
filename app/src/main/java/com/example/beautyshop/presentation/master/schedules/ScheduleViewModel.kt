@@ -5,25 +5,45 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.beautyshop.data.api.ApiHelper
 import com.example.beautyshop.data.models.ProfileModel
+import com.example.beautyshop.data.models.ScheduleModel
+import com.example.beautyshop.data.models.ServiceModel
+import com.example.beautyshop.models.ScheduleRequest
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
 
 class ScheduleViewModel : ViewModel(), IScheduleViewModel {
     private val isProgress: MutableLiveData<Boolean> = MutableLiveData(false)
-    private val profileLiveData: MutableLiveData<ProfileModel> = MutableLiveData()
+    private val schedules: MutableLiveData<MutableList<ScheduleModel>> = MutableLiveData()
+    private val services: MutableLiveData<MutableList<ServiceModel>> = MutableLiveData()
     private val isErrorLiveData: MutableLiveData<String> = MutableLiveData()
 
     override fun onGetIsLoad() = isProgress
-    override fun onGetData() = profileLiveData
+    override fun onGetData() = schedules
+    override fun onGetServices() = services
+
     override fun onGetIsError() = isErrorLiveData
 
     override fun onLoadData() {
         MainScope().launch(Dispatchers.IO) {
             try {
-                val response = ApiHelper.getProfile().execute()
-                profileLiveData.postValue(response.body())
+                val response = ApiHelper.getSchedules().execute()
+                schedules.postValue(response.body()?.schedules ?: mutableListOf())
 
+                val servicedResponse = ApiHelper.getServices().execute()
+                services.postValue(servicedResponse.body()?.first()?.services ?: mutableListOf())
+            } catch (e: Exception) {
+                Log.d("error", e.message.toString())
+                isErrorLiveData.postValue(e.message)
+            }
+        }
+    }
+
+    override fun onCreateSchedule(serviceId: Int, dateTime: String) {
+        MainScope().launch(Dispatchers.IO) {
+            try {
+                ApiHelper.createSchedule(ScheduleRequest(serviceId, dateTime)).execute()
+                onLoadData()
             } catch (e: Exception) {
                 Log.d("error", e.message.toString())
                 isErrorLiveData.postValue(e.message)

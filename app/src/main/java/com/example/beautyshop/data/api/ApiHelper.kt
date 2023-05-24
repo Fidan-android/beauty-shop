@@ -44,4 +44,6 @@ object ApiHelper {
     fun getAppointments() = apiService.getAppointments()
     fun createAppointment() = apiService.createAppointment()
     fun cancelAppointment(appointmentId: Int) = apiService.cancelAppointment(appointmentId)
+    fun getSchedules() = apiService.getSchedules()
+    fun createSchedule(model: ScheduleRequest) = apiService.createSchedule(model)
 }

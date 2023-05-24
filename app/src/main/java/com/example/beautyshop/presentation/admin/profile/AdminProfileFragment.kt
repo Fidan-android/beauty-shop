@@ -113,7 +113,7 @@ class AdminProfileFragment : Fragment() {
                     .with(requireContext())
                     .load(
                         GlideUrl(
-                            "http://a91745zj.beget.tech/api/v1/img/" + it.image,
+                            "http://c95130nt.beget.tech/api/v1/img/" + it.image,
                             LazyHeaders.Builder()
                                 .addHeader("User-Agent", "Mozilla/5.0")
                                 .build()

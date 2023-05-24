@@ -43,8 +43,13 @@
     <string name="appointment_to">Запись к мастеру %1$s на %2$s</string>
     <string name="service_name">Услуга: %1$s</string>
     <string name="service_price">Цена: %1$s</string>
+    <string name="service_duration">Длительность: %1$s</string>
+    <string name="service_time">Время: %1$s</string>
     <string name="title_schedule">График</string>
     <string name="title_work">Работы</string>
+    <string name="create_new_schedule">Добавить график</string>
+    <string name="enter_phone">Введите телефон</string>
+    <string name="subscribe">Записаться</string>
     <string-array name="times">
         <item>часы</item>
         <item>минуты</item>

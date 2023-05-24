@@ -26,6 +26,7 @@ class CustomCalendarView : LinearLayout, ICustomCalendarView {
     }
 
     private val pDays: MutableList<Pair<String, Date?>> = mutableListOf()
+    private var changedPosition = -1
 
     var binding: CustomCalendarViewBinding? = null
 
@@ -69,6 +70,7 @@ class CustomCalendarView : LinearLayout, ICustomCalendarView {
         month: Int,
         delegate: ICustomCalendarListener
     ) {
+        pDays.clear()
         val calendar = Calendar.getInstance().apply {
             clear()
             set(Calendar.DAY_OF_MONTH, 1)
@@ -93,14 +95,17 @@ class CustomCalendarView : LinearLayout, ICustomCalendarView {
         )
         binding?.calendarView?.adapter =
             CalendarAdapter(
+                changedPosition,
                 context,
                 pDays.map { item -> item.first }.toMutableList(),
                 object : CalendarAdapter.ICalendarAdapterListener {
                     override fun onClick(position: Int, move: Boolean) {
                         if (move) {
+                            changedPosition = position
                             delegate.addItem(pDays[position].second!!)
-
+                            onConfigure(month, delegate)
                         } else {
+                            changedPosition = -1
                             delegate.removeItem(pDays[position].second!!)
                         }
                     }

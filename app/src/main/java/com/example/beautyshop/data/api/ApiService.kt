@@ -67,4 +67,11 @@ interface ApiService {
 
     @GET("appointments/cancel/")
     fun cancelAppointment(@Query("appointment_id") appointmentId: Int): Call<MessageResponse>
+
+    @GET("schedule/")
+    fun getSchedules(): Call<ScheduleResponse>
+
+    @POST("schedule/")
+    fun createSchedule(@Body body: ScheduleRequest): Call<MessageResponse>
+
 }

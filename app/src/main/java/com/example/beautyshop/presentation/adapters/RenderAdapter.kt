@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
 import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatTextView
@@ -11,11 +12,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.beautyshop.R
 import com.example.beautyshop.conventions.RenderViewType
-import com.example.beautyshop.data.models.AppointmentModel
-import com.example.beautyshop.data.models.ProfileModel
-import com.example.beautyshop.data.models.SectionModel
-import com.example.beautyshop.data.models.ServiceModel
+import com.example.beautyshop.data.models.*
 import com.google.android.material.card.MaterialCardView
+import java.text.DateFormat
+import java.text.SimpleDateFormat
 
 
 class RenderAdapter<T>(private val viewType: Int, private val delegate: IItemClickListener) :
@@ -52,6 +52,18 @@ class RenderAdapter<T>(private val viewType: Int, private val delegate: IItemCli
                 LayoutInflater.from(parent.context)
                     .inflate(R.layout.appointment_cell, parent, false)
             )
+            RenderViewType.MasterAppointmentsViewType.viewType -> MasterAppointmentsViewHolder(
+                LayoutInflater.from(parent.context)
+                    .inflate(R.layout.master_appointment_cell, parent, false)
+            )
+            RenderViewType.MasterSchedulesViewType.viewType -> MasterScheduleViewHolder(
+                LayoutInflater.from(parent.context)
+                    .inflate(R.layout.master_schedule_cell, parent, false)
+            )
+            RenderViewType.ScheduleTimesViewType.viewType -> ScheduleTimesViewHolder(
+                LayoutInflater.from(parent.context)
+                    .inflate(R.layout.time_cell, parent, false)
+            )
             else -> throw IllegalArgumentException("Unknown view type")
         }
     }
@@ -80,6 +92,18 @@ class RenderAdapter<T>(private val viewType: Int, private val delegate: IItemCli
             )
             is AppointmentsViewHolder -> holder.onBind(
                 renderList[position] as AppointmentModel,
+                delegate::onClick
+            )
+            is MasterAppointmentsViewHolder -> holder.onBind(
+                renderList[position] as AppointmentModel,
+                delegate::onClick
+            )
+            is MasterScheduleViewHolder -> holder.onBind(
+                renderList[position] as ScheduleModel,
+                delegate::onClick
+            )
+            is ScheduleTimesViewHolder -> holder.onBind(
+                renderList[position] as ScheduleModel,
                 delegate::onClick
             )
         }
@@ -208,6 +232,53 @@ class RenderAdapter<T>(private val viewType: Int, private val delegate: IItemCli
 
             btnCancelAppointment.setOnClickListener {
                 onClick(model.appointmentId)
+            }
+        }
+    }
+
+    open class MasterAppointmentsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+
+        private val userName: AppCompatTextView = itemView.findViewById(R.id.userName)
+        private val serviceInfo: AppCompatTextView = itemView.findViewById(R.id.serviceInfo)
+        private val serviceName: AppCompatTextView = itemView.findViewById(R.id.serviceName)
+        private val servicePrice: AppCompatTextView = itemView.findViewById(R.id.servicePrice)
+
+        @SuppressLint("SetTextI18n")
+        open fun onBind(model: AppointmentModel, onClick: (Int) -> Unit) {
+            userName.text = model.user
+            serviceInfo.text = itemView.context.getString(R.string.appointment_to, model.master, model.scheduleTime)
+            serviceName.text = itemView.context.getString(R.string.service_name, model.serviceName)
+            servicePrice.text = itemView.context.getString(R.string.service_price, model.servicePrice)
+        }
+    }
+
+    open class MasterScheduleViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+
+        private val scheduleInfo: AppCompatTextView = itemView.findViewById(R.id.scheduleInfo)
+        private val scheduleTime: AppCompatTextView = itemView.findViewById(R.id.scheduleTime)
+        private val servicePrice: AppCompatTextView = itemView.findViewById(R.id.servicePrice)
+        private val serviceDuration: AppCompatTextView = itemView.findViewById(R.id.serviceDuration)
+
+        @SuppressLint("SetTextI18n")
+        open fun onBind(model: ScheduleModel, onClick: (Int) -> Unit) {
+            scheduleInfo.text = itemView.context.getString(R.string.service_name, model.serviceName)
+            scheduleTime.text = itemView.context.getString(R.string.service_time, model.time)
+            servicePrice.text = itemView.context.getString(R.string.service_price, model.servicePrice)
+            serviceDuration.text = itemView.context.getString(R.string.service_duration, model.duration)
+        }
+    }
+
+    open class ScheduleTimesViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+
+        private val rootView: FrameLayout = itemView.findViewById(R.id.rootView)
+        private val textDay: AppCompatTextView = itemView.findViewById(R.id.textDay)
+
+        @SuppressLint("SetTextI18n", "SimpleDateFormat")
+        open fun onBind(model: ScheduleModel, onClick: (Int) -> Unit) {
+            textDay.text = SimpleDateFormat("HH:mm").format(SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(model.time)!!)
+
+            rootView.setOnClickListener {
+                onClick(model.id)
             }
         }
     }

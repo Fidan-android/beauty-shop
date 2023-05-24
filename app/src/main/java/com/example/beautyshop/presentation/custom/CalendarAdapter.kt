@@ -8,12 +8,14 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import androidx.appcompat.widget.AppCompatTextView
 import com.example.beautyshop.R
+import java.text.FieldPosition
 import java.text.SimpleDateFormat
 import java.util.*
 
 class CalendarAdapter(
+    private val changedPosition: Int,
     context: Context,
-        days: MutableList<String>,
+    days: MutableList<String>,
     private val delegate: ICalendarAdapterListener
 ) :
     ArrayAdapter<String>(context, 0, days) {
@@ -45,6 +47,8 @@ class CalendarAdapter(
                 isEnabled = calendar.get(Calendar.MONTH) >= Calendar.getInstance()
                     .get(Calendar.MONTH) && calendar.get(Calendar.DAY_OF_MONTH) > Calendar.getInstance()
                     .get(Calendar.DAY_OF_MONTH)
+
+                isActivated = changedPosition == position
             }
         }
         return view

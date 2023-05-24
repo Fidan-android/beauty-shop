@@ -2,8 +2,10 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:id="@+id/rootView"
     android:background="@drawable/bg_bordered_time"
     android:minHeight="30dp"
+    android:layout_margin="8dp"
     android:paddingHorizontal="20dp">
 
     <androidx.appcompat.widget.AppCompatTextView
