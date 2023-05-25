@@ -4,11 +4,11 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import com.example.beautyshop.presentation.root.MainActivity
 import com.example.beautyshop.R
 import com.example.beautyshop.conventions.SharedKeys
 import com.example.beautyshop.databinding.ActivityLoginBinding
 import com.example.beautyshop.helper.shared
+import com.example.beautyshop.presentation.root.MainActivity
 
 class LoginActivity : AppCompatActivity(), ILoginActivity {
 

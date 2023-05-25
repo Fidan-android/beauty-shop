@@ -1,7 +1,6 @@
 package com.example.beautyshop.presentation.master.schedules
 
 import androidx.lifecycle.MutableLiveData
-import com.example.beautyshop.data.models.ProfileModel
 import com.example.beautyshop.data.models.ScheduleModel
 import com.example.beautyshop.data.models.ServiceModel
 

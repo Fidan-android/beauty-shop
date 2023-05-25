@@ -10,19 +10,14 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.model.GlideUrl
 import com.bumptech.glide.load.model.LazyHeaders
 import com.example.beautyshop.R
 import com.example.beautyshop.conventions.RenderViewType
-import com.example.beautyshop.data.models.ScheduleModel
+import com.example.beautyshop.data.models.WorkModel
 import com.example.beautyshop.data.models.WorkOfMasterModel
 import com.example.beautyshop.databinding.FragmentWorkBinding
 import com.example.beautyshop.presentation.adapters.RenderAdapter
-import com.example.beautyshop.presentation.custom.CustomCalendarView
-import com.example.beautyshop.presentation.root.MainActivity
-import com.example.beautyshop.presentation.user.service_page.create_appointment.AddAppointmentDialog
-import java.text.SimpleDateFormat
 import java.util.*
 
 class WorkFragment : Fragment() {
@@ -32,7 +27,7 @@ class WorkFragment : Fragment() {
     private val viewModel by lazy {
         ViewModelProvider(this)[WorkViewModel::class.java]
     }
-    private val adapter: RenderAdapter<WorkOfMasterModel> by lazy {
+    private val adapter: RenderAdapter<WorkModel> by lazy {
         RenderAdapter(
             RenderViewType.WorkOfMasterViewType.viewType,
             object : RenderAdapter.IItemClickListener {
@@ -61,9 +56,28 @@ class WorkFragment : Fragment() {
     @SuppressLint("SetTextI18n")
     override fun onStart() {
         super.onStart()
-
+        binding.goBack.setOnClickListener {
+            NavHostFragment.findNavController(this@WorkFragment).popBackStack()
+        }
         viewModel.onGetData().observe(viewLifecycleOwner) {
             adapter.onUpdateItems(it)
+        }
+
+        viewModel.onGetMasterData().observe(viewLifecycleOwner) {
+            binding.masterName.text = it.masterName
+            Glide
+                .with(requireContext())
+                .load(
+                    GlideUrl(
+                        "http://c95130nt.beget.tech/api/v1/img/" + it.masterAvatar,
+                        LazyHeaders.Builder()
+                            .addHeader("User-Agent", "Mozilla/5.0")
+                            .build()
+                    )
+                )
+                .centerCrop()
+                .error(R.drawable.sample_avatar)
+                .into(binding.masterAvatar)
         }
     }
 }

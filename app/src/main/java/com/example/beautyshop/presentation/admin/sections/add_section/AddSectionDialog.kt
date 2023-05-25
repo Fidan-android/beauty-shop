@@ -8,9 +8,6 @@ import androidx.fragment.app.DialogFragment
 import com.example.beautyshop.R
 import com.example.beautyshop.databinding.DialogAddSectionBinding
 import com.google.android.material.snackbar.Snackbar
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.MainScope
-import kotlinx.coroutines.launch
 
 
 class AddSectionDialog(
@@ -44,13 +41,6 @@ class AddSectionDialog(
 
     override fun onStart() {
         super.onStart()
-        MainScope().launch(Dispatchers.IO) {
-
-        }
-        binding.root.setOnClickListener {
-            dismissAllowingStateLoss()
-        }
-
         binding.btnCreateSection.setOnClickListener {
             if (binding.etSectionName.text.toString().isNotEmpty()) {
                 delegate.onAccept(binding.etSectionName.text.toString())

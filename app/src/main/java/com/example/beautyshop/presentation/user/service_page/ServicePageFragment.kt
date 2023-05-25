@@ -15,11 +15,9 @@ import com.bumptech.glide.load.model.GlideUrl
 import com.bumptech.glide.load.model.LazyHeaders
 import com.example.beautyshop.R
 import com.example.beautyshop.conventions.RenderViewType
-import com.example.beautyshop.data.models.AppointmentModel
 import com.example.beautyshop.data.models.ScheduleModel
 import com.example.beautyshop.databinding.FragmentServicePageBinding
 import com.example.beautyshop.presentation.adapters.RenderAdapter
-import com.example.beautyshop.presentation.auth.LoginActivity
 import com.example.beautyshop.presentation.custom.CustomCalendarView
 import com.example.beautyshop.presentation.root.MainActivity
 import com.example.beautyshop.presentation.user.service_page.create_appointment.AddAppointmentDialog
@@ -40,7 +38,7 @@ class ServicePageFragment : Fragment() {
             object : RenderAdapter.IItemClickListener {
                 override fun onClick(position: Int) {
                     (requireActivity() as MainActivity).onShowDialogFragment(
-                        AddAppointmentDialog(object :AddAppointmentDialog.IAddAppointmentDialog {
+                        AddAppointmentDialog(object : AddAppointmentDialog.IAddAppointmentDialog {
                             override fun onAccept(phone: String) {
                                 viewModel.onCreateAppointment(position, phone)
                                 clearForm()
@@ -100,8 +98,33 @@ class ServicePageFragment : Fragment() {
 
             binding.serviceName.text = service.serviceName
             binding.servicePrice.text = service.price
-            binding.serviceHours.text = "${service.time} час."
+            binding.serviceHours.text = "${service.time} ${service.measurement}."
             onConfigureCalendar()
+        }
+        viewModel.onGetSchedules().observe(viewLifecycleOwner) {
+            val schedule = it.firstOrNull { model -> model.serviceId == args.serviceId }
+            if (schedule != null) {
+                binding.masterName.text = schedule.master
+                binding.masterName.isSelected = true
+                Glide
+                    .with(requireContext())
+                    .load(
+                        GlideUrl(
+                            "http://c95130nt.beget.tech/api/v1/img/" + schedule.masterAvatar,
+                            LazyHeaders.Builder()
+                                .addHeader("User-Agent", "Mozilla/5.0")
+                                .build()
+                        )
+                    )
+                    .skipMemoryCache(true)
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .centerCrop()
+                    .error(R.drawable.sample_avatar)
+                    .into(binding.masterAvatar)
+            } else {
+                binding.masterName.visibility = View.GONE
+                binding.masterAvatar.visibility = View.GONE
+            }
         }
         viewModel.onGetIsSuccess().observe(viewLifecycleOwner) {
             Snackbar.make(binding.root, it, Snackbar.LENGTH_SHORT).show()

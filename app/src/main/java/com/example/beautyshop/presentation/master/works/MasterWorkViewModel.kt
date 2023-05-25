@@ -4,8 +4,9 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.beautyshop.data.api.ApiHelper
-import com.example.beautyshop.data.models.ProfileModel
+import com.example.beautyshop.data.models.WorkModel
 import com.example.beautyshop.data.models.WorkOfMasterModel
+import com.example.beautyshop.data.models.WorkOfMasterResponse
 import com.example.beautyshop.models.AddWorkRequest
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.MainScope
@@ -15,11 +16,13 @@ import java.util.*
 
 class MasterWorkViewModel : ViewModel(), IMasterWorkViewModel {
     private val isProgress: MutableLiveData<Boolean> = MutableLiveData(false)
-    private val worksLiveData: MutableLiveData<MutableList<WorkOfMasterModel>> = MutableLiveData()
+    private val masterLiveData: MutableLiveData<WorkOfMasterModel> = MutableLiveData()
+    private val worksLiveData: MutableLiveData<MutableList<WorkModel>> = MutableLiveData()
     private val isErrorLiveData: MutableLiveData<String> = MutableLiveData()
 
     override fun onGetIsLoad() = isProgress
     override fun onGetData() = worksLiveData
+    override fun onGetMasterData() = masterLiveData
     override fun onGetIsError() = isErrorLiveData
 
     override fun onLoadData() {
@@ -29,7 +32,9 @@ class MasterWorkViewModel : ViewModel(), IMasterWorkViewModel {
                 val response = ApiHelper.getWorkOfMaster(profile.body()?.id!!).execute()
 
                 if (response.body()?.message.isNullOrEmpty()) {
-                    worksLiveData.postValue(response.body()?.works ?: mutableListOf())
+                    val model = response.body() as WorkOfMasterResponse
+                    masterLiveData.postValue(model.worksOfMaster!!)
+                    worksLiveData.postValue(response.body()?.worksOfMaster?.works ?: mutableListOf())
                 } else {
                     isErrorLiveData.postValue(response.body()?.message ?: "")
                 }

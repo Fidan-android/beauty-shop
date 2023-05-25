@@ -15,7 +15,6 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.DialogFragment
 import com.example.beautyshop.R
 import com.example.beautyshop.databinding.DialogAddWorkBinding
-import com.example.beautyshop.databinding.DialogAddWorkerBinding
 import com.example.beautyshop.helper.copyInputStreamToFile
 import com.example.beautyshop.helper.toIso
 import java.io.File

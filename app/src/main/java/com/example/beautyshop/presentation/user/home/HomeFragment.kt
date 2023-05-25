@@ -7,10 +7,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.beautyshop.databinding.FragmentHomeBinding
-import com.example.beautyshop.databinding.FragmentLoginBinding
 import com.example.beautyshop.presentation.auth.LoginViewModel
 
-class HomeFragment: Fragment() {
+class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!

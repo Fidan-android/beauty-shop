@@ -9,9 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.beautyshop.conventions.RenderViewType
 import com.example.beautyshop.data.models.ProfileModel
 import com.example.beautyshop.databinding.FragmentAdminWorkerBinding
-import com.example.beautyshop.databinding.FragmentWorkerBinding
 import com.example.beautyshop.presentation.adapters.RenderAdapter
-import com.example.beautyshop.presentation.admin.services.page.AddWorkersDialog
 import com.example.beautyshop.presentation.admin.workers.dialog.AddWorkerDialog
 import com.example.beautyshop.presentation.root.MainActivity
 

@@ -9,5 +9,6 @@ data class ScheduleModel(
     @SerializedName("name") val serviceName: String,
     @SerializedName("price") val servicePrice: String,
     @SerializedName("duration") val duration: String,
-    @SerializedName("master") val master: String
+    @SerializedName("master") val master: String,
+    @SerializedName("master_avatar") val masterAvatar: String,
 )

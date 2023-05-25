@@ -7,13 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.example.beautyshop.presentation.root.MainActivity
 import com.example.beautyshop.conventions.SharedKeys
 import com.example.beautyshop.data.IInternetConnected
 import com.example.beautyshop.data.api.ApiManager
 import com.example.beautyshop.databinding.FragmentLoginBinding
 import com.example.beautyshop.helper.saveShared
 import com.example.beautyshop.presentation.auth.register.RegistrationFragment
+import com.example.beautyshop.presentation.root.MainActivity
 
 class LoginFragment : Fragment() {
 

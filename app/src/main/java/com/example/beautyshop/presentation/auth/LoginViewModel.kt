@@ -9,7 +9,6 @@ import com.example.beautyshop.models.LoginRequest
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
-import java.util.regex.Pattern
 
 class LoginViewModel : ViewModel(), ILoginViewModel {
 

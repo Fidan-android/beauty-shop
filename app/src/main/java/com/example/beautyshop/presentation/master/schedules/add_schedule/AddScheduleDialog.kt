@@ -5,18 +5,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.CalendarView.OnDateChangeListener
-import android.widget.DatePicker
 import androidx.fragment.app.DialogFragment
 import com.example.beautyshop.R
 import com.example.beautyshop.conventions.RenderViewType
-import com.example.beautyshop.data.models.ScheduleModel
 import com.example.beautyshop.data.models.ServiceModel
 import com.example.beautyshop.databinding.DialogAddScheduleBinding
-import com.example.beautyshop.databinding.DialogAddSectionBinding
 import com.example.beautyshop.presentation.adapters.RenderAdapter
-import com.example.beautyshop.presentation.custom.CustomCalendarView
-import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
@@ -86,7 +80,10 @@ class AddScheduleDialog(
         }
 
         val currentDate = Calendar.getInstance()
-        binding.datePicker.init(currentDate.get(Calendar.YEAR), currentDate.get(Calendar.MONTH), currentDate.get(Calendar.DAY_OF_MONTH)
+        binding.datePicker.init(
+            currentDate.get(Calendar.YEAR),
+            currentDate.get(Calendar.MONTH),
+            currentDate.get(Calendar.DAY_OF_MONTH)
         ) { _, year, month, day ->
             changedCalendar.set(Calendar.YEAR, year)
             changedCalendar.set(Calendar.MONTH, month)
@@ -97,7 +94,10 @@ class AddScheduleDialog(
             changedCalendar.set(Calendar.MINUTE, minutes)
         }
         binding.btnCreateSchedule.setOnClickListener {
-            delegate.onAccept(changedService, SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(changedCalendar.time).toString())
+            delegate.onAccept(
+                changedService,
+                SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(changedCalendar.time).toString()
+            )
             dismissAllowingStateLoss()
         }
     }

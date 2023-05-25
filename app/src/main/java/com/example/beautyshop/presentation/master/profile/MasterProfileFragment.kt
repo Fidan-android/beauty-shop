@@ -24,7 +24,6 @@ import com.example.beautyshop.R
 import com.example.beautyshop.conventions.RenderViewType
 import com.example.beautyshop.conventions.SharedKeys
 import com.example.beautyshop.data.models.AppointmentModel
-import com.example.beautyshop.databinding.FragmentAdminProfileBinding
 import com.example.beautyshop.databinding.FragmentMasterProfileBinding
 import com.example.beautyshop.helper.copyInputStreamToFile
 import com.example.beautyshop.helper.removeShared
@@ -57,6 +56,7 @@ class MasterProfileFragment : Fragment() {
             openPictureResultCallback
         )
     }
+
     private val adapter: RenderAdapter<AppointmentModel> by lazy {
         RenderAdapter(
             RenderViewType.MasterAppointmentsViewType.viewType,

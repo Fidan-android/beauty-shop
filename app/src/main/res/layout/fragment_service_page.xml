@@ -93,7 +93,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/finlandica_regular"
-                    android:text="Ламинирование ресниц + окрашинвание бровей"
                     android:textColor="@color/black"
                     android:textSize="16sp"
                     android:textStyle="bold" />
@@ -109,7 +108,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/finlandica_regular"
-                        android:text="от "
                         android:textColor="@color/gray"
                         android:textSize="14sp" />
 
@@ -126,7 +124,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/finlandica_regular"
-                        android:text="3 час"
                         android:textColor="@color/gray"
                         android:textSize="14sp" />
 
@@ -167,12 +164,21 @@
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/masterName"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="Юлия"
+                    android:gravity="center"
+                    android:ellipsize="marquee"
+                    android:fadingEdge="horizontal"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:fontFamily="@font/antropos_freefont"
+                    android:lines="1"
+                    android:marqueeRepeatLimit="marquee_forever"
+                    android:maxLines="1"
+                    android:paddingHorizontal="12dp"
+                    android:singleLine="true"
                     android:textColor="@color/black"
-                    android:textSize="13sp"
+                    android:textSize="12sp"
                     android:textStyle="bold" />
 
             </LinearLayout>

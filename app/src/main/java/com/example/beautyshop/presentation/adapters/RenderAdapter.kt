@@ -116,11 +116,11 @@ class RenderAdapter<T>(private val viewType: Int, private val delegate: IItemCli
                 delegate::onClick
             )
             is WorkOfMasterViewHolder -> holder.onBind(
-                renderList[position] as WorkOfMasterModel,
+                renderList[position] as WorkModel,
                 delegate::onClick
             )
             is WorksViewHolder -> holder.onBind(
-                renderList[position] as WorkOfMasterModel,
+                renderList[position] as WorkModel,
                 delegate::onClick
             )
         }
@@ -146,6 +146,8 @@ class RenderAdapter<T>(private val viewType: Int, private val delegate: IItemCli
         open fun onBind(model: ProfileModel, onClick: (Int) -> Unit) {
             masterFullName.text =
                 model.firstName + " " + model.name
+            masterRole.text = model.sectionName ?: ""
+
             Glide
                 .with(itemView.context)
                 .load(
@@ -197,8 +199,8 @@ class RenderAdapter<T>(private val viewType: Int, private val delegate: IItemCli
         @SuppressLint("SetTextI18n")
         open fun onBind(model: ServiceModel, onClick: (Int) -> Unit) {
             serviceName.text = model.serviceName
-            servicePrice.text = model.price.toString()
-            serviceHours.text = "${model.time} час."
+            servicePrice.text = model.price
+            serviceHours.text = "${model.time} ${model.measurement}."
 
             rootView.setOnClickListener {
                 onClick(model.id)
@@ -340,7 +342,7 @@ class RenderAdapter<T>(private val viewType: Int, private val delegate: IItemCli
         private val description: AppCompatTextView = itemView.findViewById(R.id.description)
 
         @SuppressLint("SetTextI18n", "SimpleDateFormat")
-        open fun onBind(model: WorkOfMasterModel, onClick: (Int) -> Unit) {
+        open fun onBind(model: WorkModel, onClick: (Int) -> Unit) {
             description.text = model.description
             description.isSelected = true
             Glide
@@ -366,7 +368,7 @@ class RenderAdapter<T>(private val viewType: Int, private val delegate: IItemCli
         private val btnDeleteWork: AppCompatImageView = itemView.findViewById(R.id.btnDeleteWork)
 
         @SuppressLint("SetTextI18n", "SimpleDateFormat")
-        open fun onBind(model: WorkOfMasterModel, onClick: (Int) -> Unit) {
+        open fun onBind(model: WorkModel, onClick: (Int) -> Unit) {
             description.text = model.description
             description.isSelected = true
             Glide

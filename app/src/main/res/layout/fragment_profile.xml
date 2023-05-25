@@ -47,7 +47,7 @@
                 android:textSize="22sp"
                 android:textStyle="bold" />
         </FrameLayout>
-        
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/activeAppointments"
             android:layout_width="match_parent"

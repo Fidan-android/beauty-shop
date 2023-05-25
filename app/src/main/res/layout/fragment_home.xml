@@ -148,7 +148,7 @@
                 android:fontFamily="@font/antropos_freefont"
                 android:textSize="20sp"
                 android:textColor="@color/white"
-                android:layout_gravity="end|bottom"/>
+                android:layout_gravity="end|bottom" />
         </androidx.cardview.widget.CardView>
 
 
@@ -182,7 +182,7 @@
                 android:fontFamily="@font/antropos_freefont"
                 android:textSize="20sp"
                 android:textColor="@color/white"
-                android:layout_gravity="start|bottom"/>
+                android:layout_gravity="start|bottom" />
         </androidx.cardview.widget.CardView>
 
 
@@ -216,7 +216,7 @@
                 android:fontFamily="@font/antropos_freefont"
                 android:textSize="20sp"
                 android:textColor="@color/white"
-                android:layout_gravity="end|bottom"/>
+                android:layout_gravity="end|bottom" />
         </androidx.cardview.widget.CardView>
 
 
@@ -250,7 +250,7 @@
                 android:fontFamily="@font/antropos_freefont"
                 android:textSize="20sp"
                 android:textColor="@color/white"
-                android:layout_gravity="start|bottom"/>
+                android:layout_gravity="start|bottom" />
         </androidx.cardview.widget.CardView>
 
 

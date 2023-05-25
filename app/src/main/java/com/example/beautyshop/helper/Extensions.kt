@@ -74,8 +74,10 @@ fun Date.toIso(locale: Locale = Locale.getDefault(), timeZone: TimeZone? = null)
         .format(this)
         .replace("GMT", "")
 }
+
 fun String.isEmailValid(): Boolean {
-    val emailRegex = "^[_A-Za-z\\d-+]+(\\.[_A-Za-z\\d-]+)*@" + "[A-Za-z\\d-]+(\\.[A-Za-z\\d]+)*(\\.[A-Za-z]{2,})$"
+    val emailRegex =
+        "^[_A-Za-z\\d-+]+(\\.[_A-Za-z\\d-]+)*@" + "[A-Za-z\\d-]+(\\.[A-Za-z\\d]+)*(\\.[A-Za-z]{2,})$"
     val pattern = Pattern.compile(emailRegex)
     val matcher = pattern.matcher(this)
     return matcher.matches()

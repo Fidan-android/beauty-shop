@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.beautyshop.conventions.RenderViewType
-import com.example.beautyshop.data.models.AppointmentModel
 import com.example.beautyshop.data.models.ScheduleModel
 import com.example.beautyshop.databinding.FragmentScheduleBinding
 import com.example.beautyshop.presentation.adapters.RenderAdapter
@@ -55,14 +54,20 @@ class ScheduleFragment : Fragment() {
         binding.addSchedule.setOnClickListener {
             if (!viewModel.onGetServices().value.isNullOrEmpty()) {
                 (requireActivity() as MainActivity).onShowDialogFragment(
-                    AddScheduleDialog(viewModel.onGetServices().value ?: mutableListOf(), object : AddScheduleDialog.IAddScheduleDialog {
-                        override fun onAccept(serviceId: Int, dateTime: String) {
-                            viewModel.onCreateSchedule(serviceId, dateTime)
-                        }
-                    })
+                    AddScheduleDialog(
+                        viewModel.onGetServices().value ?: mutableListOf(),
+                        object : AddScheduleDialog.IAddScheduleDialog {
+                            override fun onAccept(serviceId: Int, dateTime: String) {
+                                viewModel.onCreateSchedule(serviceId, dateTime)
+                            }
+                        })
                 )
             } else {
-                Snackbar.make(binding.root, "Мастер не прикреплен к секции услуг", Snackbar.LENGTH_SHORT).show()
+                Snackbar.make(
+                    binding.root,
+                    "Мастер не прикреплен к секции услуг",
+                    Snackbar.LENGTH_SHORT
+                ).show()
             }
         }
         viewModel.onGetIsError().observe(viewLifecycleOwner) {

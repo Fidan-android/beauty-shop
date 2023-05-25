@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import androidx.appcompat.widget.AppCompatTextView
 import com.example.beautyshop.R
-import java.text.FieldPosition
 import java.text.SimpleDateFormat
 import java.util.*
 

@@ -27,8 +27,10 @@ class ServicePageViewModel : ViewModel(), IServicePageViewModel {
     override fun onGetIsLoad() = isProgress
     override fun onGetData() = sectionsLiveData
     override fun onGetProfileData() = profileLiveData
+    override fun onGetSchedules() = scheduleLiveData
     override fun onGetIsError() = isErrorLiveData
     override fun onGetIsSuccess() = isSuccessLiveData
+
     @SuppressLint("SimpleDateFormat")
     override fun onGetScheduleTimes(serviceId: Int, date: Date): MutableList<ScheduleModel> {
         val tempList: MutableList<ScheduleModel> = mutableListOf()
@@ -57,7 +59,9 @@ class ServicePageViewModel : ViewModel(), IServicePageViewModel {
         MainScope().launch(Dispatchers.IO) {
             try {
                 val response = ApiHelper.getServices().execute()
-                sectionsLiveData.postValue((response.body() as SectionResponse).sections ?: mutableListOf())
+                sectionsLiveData.postValue(
+                    (response.body() as SectionResponse).sections ?: mutableListOf()
+                )
 
                 val profile = ApiHelper.getProfile().execute()
                 profileLiveData.postValue(profile.body())
@@ -74,7 +78,9 @@ class ServicePageViewModel : ViewModel(), IServicePageViewModel {
     override fun onCreateAppointment(scheduleId: Int, phone: String) {
         MainScope().launch(Dispatchers.IO) {
             try {
-                val response = ApiHelper.createAppointment(CreateAppointmentRequest(scheduleId, phone)).execute()
+                val response =
+                    ApiHelper.createAppointment(CreateAppointmentRequest(scheduleId, phone))
+                        .execute()
                 if (response.body()?.message != "success") {
                     isErrorLiveData.postValue(response.body()?.message ?: "")
                 } else {

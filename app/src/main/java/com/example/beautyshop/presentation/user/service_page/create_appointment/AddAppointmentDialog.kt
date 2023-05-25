@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import com.example.beautyshop.R
 import com.example.beautyshop.databinding.DialogAddAppointmentBinding
-import com.example.beautyshop.databinding.DialogAddSectionBinding
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.MainScope

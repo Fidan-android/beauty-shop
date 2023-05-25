@@ -54,12 +54,11 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_marginHorizontal="30dp">
-            
+
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/masterFullName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Алина"
                 android:textColor="@color/black"
                 android:textSize="18sp"
                 android:textStyle="bold"
@@ -69,19 +68,18 @@
                 android:id="@+id/masterRole"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Перманентный макияж, Brow мастер"
                 android:textColor="@color/gray"
                 android:textSize="16sp"
                 android:fontFamily="@font/finlandica_regular" />
-            
+
         </LinearLayout>
-        
+
         <androidx.appcompat.widget.AppCompatImageView
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:layout_gravity="center"
             android:tint="@color/gray"
-           app:srcCompat="@drawable/arrow_right" />
+            app:srcCompat="@drawable/arrow_right" />
 
     </LinearLayout>
 

@@ -10,5 +10,6 @@ data class ProfileModel(
     @SerializedName("image") val image: String? = null,
     @SerializedName("role") val role: Int? = null,
     @SerializedName("created_at") val createdAt: String? = null,
+    @SerializedName("section_name") val sectionName: String? = null,
     @SerializedName("message") val message: String? = null
 )
