@@ -39,13 +39,15 @@ class AdminServiceFragment : Fragment() {
                                                 override fun onAccept(
                                                     serviceName: String,
                                                     price: Float,
-                                                    time: Float
+                                                    time: Float,
+                                                    measurement: String
                                                 ) {
                                                     viewModel.onCreateService(
                                                         sectionId,
                                                         serviceName,
                                                         price,
-                                                        time
+                                                        time,
+                                                        measurement
                                                     )
                                                 }
                                             }
@@ -73,13 +75,15 @@ class AdminServiceFragment : Fragment() {
                                                 override fun onAccept(
                                                     serviceName: String,
                                                     price: Float,
-                                                    time: Float
+                                                    time: Float,
+                                                    measurement: String
                                                 ) {
                                                     viewModel.onEditService(
                                                         serviceModel.id,
                                                         serviceName,
                                                         price,
-                                                        time
+                                                        time,
+                                                        measurement
                                                     )
                                                 }
                                             }

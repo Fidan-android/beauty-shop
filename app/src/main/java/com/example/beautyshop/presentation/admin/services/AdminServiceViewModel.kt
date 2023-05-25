@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import com.example.beautyshop.data.api.ApiHelper
 import com.example.beautyshop.data.models.ProfileModel
 import com.example.beautyshop.data.models.SectionModel
+import com.example.beautyshop.data.models.SectionResponse
 import com.example.beautyshop.models.EditServiceRequest
 import com.example.beautyshop.models.SectionMasterRequest
 import com.example.beautyshop.models.ServiceRequest
@@ -28,7 +29,12 @@ class AdminServiceViewModel : ViewModel(), IAdminServiceViewModel {
         MainScope().launch(Dispatchers.IO) {
             try {
                 val response = ApiHelper.getServices().execute()
-                servicesLiveData.postValue(response.body() ?: mutableListOf())
+                val body = response.body() as SectionResponse
+                if (body.message.isNullOrEmpty()) {
+                    servicesLiveData.postValue(body.sections ?: mutableListOf())
+                } else {
+                    isErrorLiveData.postValue(body.message ?: "")
+                }
 
                 val workers = ApiHelper.getMastersWithoutSection().execute()
                 if (workers.isSuccessful) {
@@ -45,7 +51,8 @@ class AdminServiceViewModel : ViewModel(), IAdminServiceViewModel {
         sectionId: Int,
         serviceName: String,
         servicePrice: Float,
-        serviceTime: Float
+        serviceTime: Float,
+        measurement: String
     ) {
         MainScope().launch(Dispatchers.IO) {
             try {
@@ -54,7 +61,8 @@ class AdminServiceViewModel : ViewModel(), IAdminServiceViewModel {
                         sectionId,
                         serviceName,
                         servicePrice,
-                        serviceTime
+                        serviceTime,
+                        measurement
                     )
                 ).execute().body()!!
 
@@ -71,7 +79,8 @@ class AdminServiceViewModel : ViewModel(), IAdminServiceViewModel {
         serviceId: Int,
         serviceName: String,
         servicePrice: Float,
-        serviceTime: Float
+        serviceTime: Float,
+        measurement: String
     ) {
         MainScope().launch(Dispatchers.IO) {
             try {
@@ -80,7 +89,8 @@ class AdminServiceViewModel : ViewModel(), IAdminServiceViewModel {
                         serviceId,
                         serviceName,
                         servicePrice,
-                        serviceTime
+                        serviceTime,
+                        measurement
                     )
                 ).execute().body()!!
 

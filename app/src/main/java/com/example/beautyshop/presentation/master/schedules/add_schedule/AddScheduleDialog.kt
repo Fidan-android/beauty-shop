@@ -69,6 +69,7 @@ class AddScheduleDialog(
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.timePicker.setIs24HourView(true)
         changedCalendar.clear()
         binding.rvScheduleServices.adapter = adapter
         adapter.onUpdateItems(services)
@@ -93,7 +94,7 @@ class AddScheduleDialog(
         }
         binding.timePicker.setOnTimeChangedListener { _, hours, minutes ->
             changedCalendar.set(Calendar.HOUR_OF_DAY, hours)
-            changedCalendar.set(Calendar.HOUR_OF_DAY, minutes)
+            changedCalendar.set(Calendar.MINUTE, minutes)
         }
         binding.btnCreateSchedule.setOnClickListener {
             delegate.onAccept(changedService, SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(changedCalendar.time).toString())

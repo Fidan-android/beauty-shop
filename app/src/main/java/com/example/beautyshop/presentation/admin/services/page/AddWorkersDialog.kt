@@ -29,6 +29,7 @@ class AddWorkersDialog(
             object : RenderAdapter.IItemClickListener {
                 override fun onClick(position: Int) {
                     delegate.onAddMaster(position)
+                    dismissAllowingStateLoss()
                 }
             })
     }

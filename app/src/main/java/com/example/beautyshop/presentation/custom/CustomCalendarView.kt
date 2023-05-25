@@ -16,6 +16,8 @@ interface ICustomCalendarView {
         month: Int,
         delegate: CustomCalendarView.ICustomCalendarListener
     )
+
+    fun onReset()
 }
 
 class CustomCalendarView : LinearLayout, ICustomCalendarView {
@@ -70,7 +72,9 @@ class CustomCalendarView : LinearLayout, ICustomCalendarView {
         month: Int,
         delegate: ICustomCalendarListener
     ) {
+        binding?.calendarView?.adapter = null
         pDays.clear()
+
         val calendar = Calendar.getInstance().apply {
             clear()
             set(Calendar.DAY_OF_MONTH, 1)
@@ -112,6 +116,13 @@ class CustomCalendarView : LinearLayout, ICustomCalendarView {
                 }
             )
     }
+
+    override fun onReset() {
+        pDays.clear()
+        binding?.calendarView?.adapter = null
+        changedPosition = -1
+    }
+
 
     @SuppressLint("SimpleDateFormat")
     fun convertStringMonthToCalendar(month: Int, year: Int): String {

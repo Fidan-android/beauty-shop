@@ -19,9 +19,11 @@ import com.example.beautyshop.data.models.AppointmentModel
 import com.example.beautyshop.data.models.ScheduleModel
 import com.example.beautyshop.databinding.FragmentServicePageBinding
 import com.example.beautyshop.presentation.adapters.RenderAdapter
+import com.example.beautyshop.presentation.auth.LoginActivity
 import com.example.beautyshop.presentation.custom.CustomCalendarView
 import com.example.beautyshop.presentation.root.MainActivity
 import com.example.beautyshop.presentation.user.service_page.create_appointment.AddAppointmentDialog
+import com.google.android.material.snackbar.Snackbar
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -40,6 +42,9 @@ class ServicePageFragment : Fragment() {
                     (requireActivity() as MainActivity).onShowDialogFragment(
                         AddAppointmentDialog(object :AddAppointmentDialog.IAddAppointmentDialog {
                             override fun onAccept(phone: String) {
+                                viewModel.onCreateAppointment(position, phone)
+                                clearForm()
+                                binding.calendarView.onReset()
                             }
                         })
                     )
@@ -60,22 +65,6 @@ class ServicePageFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.rvScheduleTimes.adapter = adapter
-        binding.calendarView.onConfigure(
-            Calendar.getInstance().get(Calendar.MONTH),
-            object : CustomCalendarView.ICustomCalendarListener {
-                @SuppressLint("SimpleDateFormat")
-                override fun addItem(date: Date) {
-                    binding.changedDate.text =
-                        SimpleDateFormat("EEEE, dd MMMM", Locale("RU")).format(date)
-                    adapter.onUpdateItems(viewModel.onGetScheduleTimes(args.serviceId, date))
-                }
-
-                override fun removeItem(date: Date) {
-                    binding.changedDate.text = ""
-                    adapter.onUpdateItems(mutableListOf())
-                }
-            }
-        )
         viewModel.onLoadData()
     }
 
@@ -112,6 +101,33 @@ class ServicePageFragment : Fragment() {
             binding.serviceName.text = service.serviceName
             binding.servicePrice.text = service.price
             binding.serviceHours.text = "${service.time} час."
+            onConfigureCalendar()
         }
+        viewModel.onGetIsSuccess().observe(viewLifecycleOwner) {
+            Snackbar.make(binding.root, it, Snackbar.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun onConfigureCalendar() {
+        binding.calendarView.onConfigure(
+            Calendar.getInstance().get(Calendar.MONTH),
+            object : CustomCalendarView.ICustomCalendarListener {
+                @SuppressLint("SimpleDateFormat")
+                override fun addItem(date: Date) {
+                    binding.changedDate.text =
+                        SimpleDateFormat("EEEE, dd MMMM", Locale("RU")).format(date)
+                    adapter.onUpdateItems(viewModel.onGetScheduleTimes(args.serviceId, date))
+                }
+
+                override fun removeItem(date: Date) {
+                    clearForm()
+                }
+            }
+        )
+    }
+
+    private fun clearForm() {
+        binding.changedDate.text = ""
+        adapter.onUpdateItems(mutableListOf())
     }
 }

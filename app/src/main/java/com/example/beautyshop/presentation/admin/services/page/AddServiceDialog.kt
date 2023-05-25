@@ -1,5 +1,6 @@
 package com.example.beautyshop.presentation.admin.services.page
 
+import android.location.GnssMeasurement
 import android.os.Bundle
 import android.text.Editable
 import android.view.LayoutInflater
@@ -18,7 +19,7 @@ class AddServiceDialog(
 ) : DialogFragment() {
 
     interface IAddServiceDialog {
-        fun onAccept(serviceName: String, price: Float, time: Float)
+        fun onAccept(serviceName: String, price: Float, time: Float, measurement: String)
     }
 
     private var _binding: DialogAddServiceBinding? = null
@@ -47,9 +48,17 @@ class AddServiceDialog(
         if (serviceModel != null) {
             binding.etServiceName.text = Editable.Factory().newEditable(serviceModel.serviceName)
             binding.etServicePrice.text =
-                Editable.Factory().newEditable(serviceModel.price.toString())
+                Editable.Factory().newEditable(serviceModel.price)
             binding.etServiceTime.text =
                 Editable.Factory().newEditable(serviceModel.time.toString())
+
+            binding.spinnerTime.setSelection(
+                if (serviceModel.measurement == "час") {
+                    0
+                } else {
+                    1
+                }
+            )
         }
     }
 
@@ -64,19 +73,12 @@ class AddServiceDialog(
                     .isNotEmpty() && binding.etServicePrice.text.toString()
                     .isNotEmpty() && binding.etServiceTime.text.toString().isNotEmpty()
             ) {
-                if (binding.spinnerTime.selectedItem.toString() == "часы") {
-                    delegate.onAccept(
-                        binding.etServiceName.text.toString(),
-                        binding.etServicePrice.text.toString().toFloat(),
-                        binding.etServiceTime.text.toString().toFloat()
-                    )
-                } else {
-                    delegate.onAccept(
-                        binding.etServiceName.text.toString(),
-                        binding.etServicePrice.text.toString().toFloat(),
-                        binding.etServiceTime.text.toString().toFloat() * 100 / 60
-                    )
-                }
+                delegate.onAccept(
+                    binding.etServiceName.text.toString(),
+                    binding.etServicePrice.text.toString().toFloat(),
+                    binding.etServiceTime.text.toString().toFloat(),
+                    binding.spinnerTime.selectedItem.toString()
+                )
                 dismissAllowingStateLoss()
             } else {
                 Snackbar.make(binding.root, "Введите наименование секции", Snackbar.LENGTH_SHORT)

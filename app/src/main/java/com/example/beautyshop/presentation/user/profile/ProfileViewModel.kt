@@ -45,7 +45,6 @@ class ProfileViewModel : ViewModel(), IProfileViewModel {
     }
 
     override fun changeImageProfile(path: String) {
-        isErrorLiveData.postValue(Base64.getEncoder().encodeToString(File(path).readBytes()))
         MainScope().launch(Dispatchers.IO) {
             ApiHelper.updateImageProfile(
                 UpdateImageProfileModel(
@@ -61,6 +60,7 @@ class ProfileViewModel : ViewModel(), IProfileViewModel {
         MainScope().launch(Dispatchers.IO) {
             ApiHelper.cancelAppointment(appointmentId).execute()
         }.invokeOnCompletion {
+            appointments.postValue(mutableListOf())
             onLoadData()
         }
     }

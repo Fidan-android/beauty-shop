@@ -15,4 +15,14 @@
         tools:layout_editor_absoluteY="-75dp"
         tools:listitem="@layout/work_cell" />
 
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/addWorks"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_margin="20dp"
+        android:tint="@color/brand_color"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/ic_add" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

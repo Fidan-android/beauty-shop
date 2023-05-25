@@ -84,7 +84,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="4dp"
-                    android:layout_weight="1"
+                    android:layout_weight="1.5"
                     android:textColorHint="@color/black"
                     app:boxBackgroundMode="none"
                     app:errorEnabled="true">
@@ -96,7 +96,7 @@
                         android:background="@drawable/bg_edit_text"
                         android:fontFamily="@font/finlandica_regular"
                         android:hint="@string/enter_service_time"
-                        android:inputType="number"
+                        android:inputType="numberDecimal"
                         android:paddingHorizontal="20dp"
                         android:paddingVertical="10dp"
                         android:textColor="@color/black"

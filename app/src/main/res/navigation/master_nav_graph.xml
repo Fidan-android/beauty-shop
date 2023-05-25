@@ -17,7 +17,7 @@
         tools:layout="@layout/fragment_schedule"/>
     <fragment
         android:id="@+id/masterWorkFragment"
-        android:name="com.example.beautyshop.presentation.master.works.WorkFragment"
+        android:name="com.example.beautyshop.presentation.master.works.MasterWorkFragment"
         android:label="WorkFragment"
         tools:layout="@layout/fragment_work"/>
 </navigation>

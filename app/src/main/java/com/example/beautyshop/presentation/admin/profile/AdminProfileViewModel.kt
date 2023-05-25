@@ -61,6 +61,7 @@ class AdminProfileViewModel : ViewModel(), IAdminProfileViewModel {
         MainScope().launch(Dispatchers.IO) {
             ApiHelper.cancelAppointment(appointmentId).execute()
         }.invokeOnCompletion {
+            appointments.postValue(mutableListOf())
             onLoadData()
         }
     }

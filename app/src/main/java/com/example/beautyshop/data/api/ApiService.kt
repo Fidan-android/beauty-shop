@@ -24,10 +24,10 @@ interface ApiService {
     ): Call<Any>
 
     @GET("services/")
-    fun getServices(): Call<MutableList<SectionModel>?>
+    fun getServices(): Call<SectionResponse>
 
     @GET("users/")
-    fun getUsers(@Query("role") role: Int): Call<MutableList<ProfileModel>?>
+    fun getUsers(@Query("role") role: Int): Call<UsersResponse>
 
     @POST("users/")
     fun updateRole(@Body body: UpdateRoleUserRequest): Call<MessageResponse>
@@ -63,7 +63,7 @@ interface ApiService {
     fun getAppointments(): Call<AppointmentResponse>
 
     @POST("appointments/")
-    fun createAppointment(): Call<MessageResponse>
+    fun createAppointment(@Body body: CreateAppointmentRequest): Call<MessageResponse>
 
     @GET("appointments/cancel/")
     fun cancelAppointment(@Query("appointment_id") appointmentId: Int): Call<MessageResponse>
@@ -74,4 +74,12 @@ interface ApiService {
     @POST("schedule/")
     fun createSchedule(@Body body: ScheduleRequest): Call<MessageResponse>
 
+    @GET("works/")
+    fun getWorkOfMaster(@Query("user_id") userId: Int): Call<WorkOfMasterResponse>
+
+    @POST("works/")
+    fun addWork(@Body body: AddWorkRequest): Call<MessageResponse>
+
+    @GET("works/delete/")
+    fun removeWork(@Query("work_id") workId: Int): Call<MessageResponse>
 }

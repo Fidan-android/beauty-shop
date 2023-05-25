@@ -50,8 +50,11 @@
     <string name="create_new_schedule">Добавить график</string>
     <string name="enter_phone">Введите телефон</string>
     <string name="subscribe">Записаться</string>
+    <string name="enter_description">Введите описание (не обязательно)</string>
+    <string name="next">Далее</string>
+    <string name="choose_photo">Выбрать фото</string>
     <string-array name="times">
-        <item>часы</item>
-        <item>минуты</item>
+        <item>час</item>
+        <item>мин</item>
     </string-array>
 </resources>

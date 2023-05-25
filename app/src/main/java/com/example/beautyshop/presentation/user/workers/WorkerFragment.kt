@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavOptions
+import androidx.navigation.fragment.NavHostFragment
 import com.example.beautyshop.conventions.RenderViewType
 import com.example.beautyshop.data.models.ProfileModel
 import com.example.beautyshop.databinding.FragmentWorkerBinding
@@ -24,7 +26,13 @@ class WorkerFragment : Fragment() {
             RenderViewType.WorkersViewType.viewType,
             object : RenderAdapter.IItemClickListener {
                 override fun onClick(position: Int) {
-
+                    NavHostFragment.findNavController(this@WorkerFragment)
+                        .navigate(
+                            WorkerFragmentDirections.actionWorkersFragmentToWorkFragment(position),
+                            NavOptions.Builder()
+                                .setRestoreState(false)
+                                .build()
+                        )
                 }
             })
     }

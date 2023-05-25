@@ -10,11 +10,12 @@ import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.model.GlideUrl
+import com.bumptech.glide.load.model.LazyHeaders
 import com.example.beautyshop.R
 import com.example.beautyshop.conventions.RenderViewType
 import com.example.beautyshop.data.models.*
 import com.google.android.material.card.MaterialCardView
-import java.text.DateFormat
 import java.text.SimpleDateFormat
 
 
@@ -64,6 +65,14 @@ class RenderAdapter<T>(private val viewType: Int, private val delegate: IItemCli
                 LayoutInflater.from(parent.context)
                     .inflate(R.layout.time_cell, parent, false)
             )
+            RenderViewType.WorkOfMasterViewType.viewType -> WorkOfMasterViewHolder(
+                LayoutInflater.from(parent.context)
+                    .inflate(R.layout.work_cell, parent, false)
+            )
+            RenderViewType.WorksViewType.viewType -> WorksViewHolder(
+                LayoutInflater.from(parent.context)
+                    .inflate(R.layout.master_work_cell, parent, false)
+            )
             else -> throw IllegalArgumentException("Unknown view type")
         }
     }
@@ -106,6 +115,14 @@ class RenderAdapter<T>(private val viewType: Int, private val delegate: IItemCli
                 renderList[position] as ScheduleModel,
                 delegate::onClick
             )
+            is WorkOfMasterViewHolder -> holder.onBind(
+                renderList[position] as WorkOfMasterModel,
+                delegate::onClick
+            )
+            is WorksViewHolder -> holder.onBind(
+                renderList[position] as WorkOfMasterModel,
+                delegate::onClick
+            )
         }
         holder.setIsRecyclable(false)
     }
@@ -131,7 +148,14 @@ class RenderAdapter<T>(private val viewType: Int, private val delegate: IItemCli
                 model.firstName + " " + model.name
             Glide
                 .with(itemView.context)
-                .load(model.image)
+                .load(
+                    GlideUrl(
+                        "http://c95130nt.beget.tech/api/v1/img/" + model.image,
+                        LazyHeaders.Builder()
+                            .addHeader("User-Agent", "Mozilla/5.0")
+                            .build()
+                    )
+                )
                 .centerCrop()
                 .error(R.drawable.sample_avatar)
                 .into(masterAvatar)
@@ -221,14 +245,22 @@ class RenderAdapter<T>(private val viewType: Int, private val delegate: IItemCli
         private val serviceInfo: AppCompatTextView = itemView.findViewById(R.id.serviceInfo)
         private val serviceName: AppCompatTextView = itemView.findViewById(R.id.serviceName)
         private val servicePrice: AppCompatTextView = itemView.findViewById(R.id.servicePrice)
-        private val btnCancelAppointment: AppCompatButton = itemView.findViewById(R.id.servicePrice)
+        private val btnCancelAppointment: AppCompatButton =
+            itemView.findViewById(R.id.btnCancelAppointment)
 
-        @SuppressLint("SetTextI18n")
+        @SuppressLint("SetTextI18n", "SimpleDateFormat")
         open fun onBind(model: AppointmentModel, onClick: (Int) -> Unit) {
             userName.text = model.user
-            serviceInfo.text = itemView.context.getString(R.string.appointment_to, model.master, model.scheduleTime)
+            serviceInfo.text = itemView.context.getString(
+                R.string.appointment_to,
+                model.master,
+                SimpleDateFormat("dd MMMM yyyy HH:mm").format(
+                    SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(model.scheduleTime)!!
+                )
+            )
             serviceName.text = itemView.context.getString(R.string.service_name, model.serviceName)
-            servicePrice.text = itemView.context.getString(R.string.service_price, model.servicePrice)
+            servicePrice.text =
+                itemView.context.getString(R.string.service_price, model.servicePrice)
 
             btnCancelAppointment.setOnClickListener {
                 onClick(model.appointmentId)
@@ -243,12 +275,21 @@ class RenderAdapter<T>(private val viewType: Int, private val delegate: IItemCli
         private val serviceName: AppCompatTextView = itemView.findViewById(R.id.serviceName)
         private val servicePrice: AppCompatTextView = itemView.findViewById(R.id.servicePrice)
 
-        @SuppressLint("SetTextI18n")
+        @SuppressLint("SetTextI18n", "SimpleDateFormat")
         open fun onBind(model: AppointmentModel, onClick: (Int) -> Unit) {
             userName.text = model.user
-            serviceInfo.text = itemView.context.getString(R.string.appointment_to, model.master, model.scheduleTime)
+            serviceInfo.text = itemView.context.getString(
+                R.string.appointment_to,
+                model.master,
+                SimpleDateFormat("dd MMMM yyyy HH:mm").format(
+                    SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(
+                        model.scheduleTime
+                    )!!
+                )
+            )
             serviceName.text = itemView.context.getString(R.string.service_name, model.serviceName)
-            servicePrice.text = itemView.context.getString(R.string.service_price, model.servicePrice)
+            servicePrice.text =
+                itemView.context.getString(R.string.service_price, model.servicePrice)
         }
     }
 
@@ -259,12 +300,21 @@ class RenderAdapter<T>(private val viewType: Int, private val delegate: IItemCli
         private val servicePrice: AppCompatTextView = itemView.findViewById(R.id.servicePrice)
         private val serviceDuration: AppCompatTextView = itemView.findViewById(R.id.serviceDuration)
 
-        @SuppressLint("SetTextI18n")
+        @SuppressLint("SetTextI18n", "SimpleDateFormat")
         open fun onBind(model: ScheduleModel, onClick: (Int) -> Unit) {
             scheduleInfo.text = itemView.context.getString(R.string.service_name, model.serviceName)
-            scheduleTime.text = itemView.context.getString(R.string.service_time, model.time)
-            servicePrice.text = itemView.context.getString(R.string.service_price, model.servicePrice)
-            serviceDuration.text = itemView.context.getString(R.string.service_duration, model.duration)
+            scheduleTime.text = itemView.context.getString(
+                R.string.service_time,
+                SimpleDateFormat("dd MMMM yyyy HH:mm").format(
+                    SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(
+                        model.time
+                    )!!
+                )
+            )
+            servicePrice.text =
+                itemView.context.getString(R.string.service_price, model.servicePrice)
+            serviceDuration.text =
+                itemView.context.getString(R.string.service_duration, model.duration)
         }
     }
 
@@ -275,9 +325,65 @@ class RenderAdapter<T>(private val viewType: Int, private val delegate: IItemCli
 
         @SuppressLint("SetTextI18n", "SimpleDateFormat")
         open fun onBind(model: ScheduleModel, onClick: (Int) -> Unit) {
-            textDay.text = SimpleDateFormat("HH:mm").format(SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(model.time)!!)
+            textDay.text =
+                SimpleDateFormat("HH:mm").format(SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(model.time)!!)
 
             rootView.setOnClickListener {
+                onClick(model.id)
+            }
+        }
+    }
+
+    open class WorkOfMasterViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+
+        private val photoView: AppCompatImageView = itemView.findViewById(R.id.photoView)
+        private val description: AppCompatTextView = itemView.findViewById(R.id.description)
+
+        @SuppressLint("SetTextI18n", "SimpleDateFormat")
+        open fun onBind(model: WorkOfMasterModel, onClick: (Int) -> Unit) {
+            description.text = model.description
+            description.isSelected = true
+            Glide
+                .with(itemView.context)
+                .load(
+                    GlideUrl(
+                        "http://c95130nt.beget.tech/api/v1/works/img/" + model.photo,
+                        LazyHeaders.Builder()
+                            .addHeader("User-Agent", "Mozilla/5.0")
+                            .build()
+                    )
+                )
+                .centerCrop()
+                .error(R.drawable.sample_avatar)
+                .into(photoView)
+        }
+    }
+
+    open class WorksViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+
+        private val photoView: AppCompatImageView = itemView.findViewById(R.id.photoView)
+        private val description: AppCompatTextView = itemView.findViewById(R.id.description)
+        private val btnDeleteWork: AppCompatImageView = itemView.findViewById(R.id.btnDeleteWork)
+
+        @SuppressLint("SetTextI18n", "SimpleDateFormat")
+        open fun onBind(model: WorkOfMasterModel, onClick: (Int) -> Unit) {
+            description.text = model.description
+            description.isSelected = true
+            Glide
+                .with(itemView.context)
+                .load(
+                    GlideUrl(
+                        "http://c95130nt.beget.tech/api/v1/works/img/" + model.photo,
+                        LazyHeaders.Builder()
+                            .addHeader("User-Agent", "Mozilla/5.0")
+                            .build()
+                    )
+                )
+                .centerCrop()
+                .error(R.drawable.sample_avatar)
+                .into(photoView)
+
+            btnDeleteWork.setOnClickListener {
                 onClick(model.id)
             }
         }

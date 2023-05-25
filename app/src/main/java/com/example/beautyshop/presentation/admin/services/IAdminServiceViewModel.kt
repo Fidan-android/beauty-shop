@@ -14,14 +14,16 @@ interface IAdminServiceViewModel {
         sectionId: Int,
         serviceName: String,
         servicePrice: Float,
-        serviceTime: Float
+        serviceTime: Float,
+        measurement: String
     )
 
     fun onEditService(
         serviceId: Int,
         serviceName: String,
         servicePrice: Float,
-        serviceTime: Float
+        serviceTime: Float,
+        measurement: String
     )
 
     fun onDeleteService(serviceId: Int)

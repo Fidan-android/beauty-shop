@@ -42,8 +42,11 @@ object ApiHelper {
         apiService.removeMaster(sectionMasterRequest)
 
     fun getAppointments() = apiService.getAppointments()
-    fun createAppointment() = apiService.createAppointment()
+    fun createAppointment(model: CreateAppointmentRequest) = apiService.createAppointment(model)
     fun cancelAppointment(appointmentId: Int) = apiService.cancelAppointment(appointmentId)
     fun getSchedules() = apiService.getSchedules()
     fun createSchedule(model: ScheduleRequest) = apiService.createSchedule(model)
+    fun getWorkOfMaster(userId: Int) = apiService.getWorkOfMaster(userId)
+    fun addWork(model: AddWorkRequest) = apiService.addWork(model)
+    fun removeWork(workId: Int) = apiService.removeWork(workId)
 }

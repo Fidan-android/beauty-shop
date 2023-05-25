@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.beautyshop.data.api.ApiHelper
 import com.example.beautyshop.data.models.ProfileModel
+import com.example.beautyshop.data.models.UsersResponse
 import com.example.beautyshop.models.UpdateRoleUserRequest
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.MainScope
@@ -25,7 +26,12 @@ class AdminWorkerViewModel : ViewModel(), IAdminWorkerViewModel {
             MainScope().launch(Dispatchers.IO) {
                 try {
                     val response = ApiHelper.getUsers(0).execute()
-                    workersLiveData.postValue(response.body() ?: mutableListOf())
+                    val body = response.body() as UsersResponse
+                    if (body.message.isNullOrEmpty()) {
+                        workersLiveData.postValue(body.users ?: mutableListOf())
+                    } else {
+                        isErrorLiveData.postValue(body.message ?: "")
+                    }
                 } catch (e: Exception) {
                     Log.d("error", e.message.toString())
                     isErrorLiveData.postValue(e.message)

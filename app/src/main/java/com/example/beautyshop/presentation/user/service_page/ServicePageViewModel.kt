@@ -8,6 +8,8 @@ import com.example.beautyshop.data.api.ApiHelper
 import com.example.beautyshop.data.models.ProfileModel
 import com.example.beautyshop.data.models.ScheduleModel
 import com.example.beautyshop.data.models.SectionModel
+import com.example.beautyshop.data.models.SectionResponse
+import com.example.beautyshop.models.CreateAppointmentRequest
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
@@ -20,11 +22,13 @@ class ServicePageViewModel : ViewModel(), IServicePageViewModel {
     private val profileLiveData: MutableLiveData<ProfileModel> = MutableLiveData()
     private val scheduleLiveData: MutableLiveData<MutableList<ScheduleModel>> = MutableLiveData()
     private val isErrorLiveData: MutableLiveData<String> = MutableLiveData()
+    private val isSuccessLiveData: MutableLiveData<String> = MutableLiveData()
 
     override fun onGetIsLoad() = isProgress
     override fun onGetData() = sectionsLiveData
     override fun onGetProfileData() = profileLiveData
     override fun onGetIsError() = isErrorLiveData
+    override fun onGetIsSuccess() = isSuccessLiveData
     @SuppressLint("SimpleDateFormat")
     override fun onGetScheduleTimes(serviceId: Int, date: Date): MutableList<ScheduleModel> {
         val tempList: MutableList<ScheduleModel> = mutableListOf()
@@ -53,7 +57,7 @@ class ServicePageViewModel : ViewModel(), IServicePageViewModel {
         MainScope().launch(Dispatchers.IO) {
             try {
                 val response = ApiHelper.getServices().execute()
-                sectionsLiveData.postValue(response.body())
+                sectionsLiveData.postValue((response.body() as SectionResponse).sections ?: mutableListOf())
 
                 val profile = ApiHelper.getProfile().execute()
                 profileLiveData.postValue(profile.body())
@@ -64,6 +68,24 @@ class ServicePageViewModel : ViewModel(), IServicePageViewModel {
                 Log.d("error", e.message.toString())
                 isErrorLiveData.postValue(e.message)
             }
+        }
+    }
+
+    override fun onCreateAppointment(scheduleId: Int, phone: String) {
+        MainScope().launch(Dispatchers.IO) {
+            try {
+                val response = ApiHelper.createAppointment(CreateAppointmentRequest(scheduleId, phone)).execute()
+                if (response.body()?.message != "success") {
+                    isErrorLiveData.postValue(response.body()?.message ?: "")
+                } else {
+                    isSuccessLiveData.postValue("Запись успешно оформлена")
+                }
+            } catch (e: Exception) {
+                Log.d("error", e.message.toString())
+                isErrorLiveData.postValue(e.message)
+            }
+        }.invokeOnCompletion {
+            onLoadData()
         }
     }
 }

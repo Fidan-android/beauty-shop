@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.beautyshop.data.api.ApiHelper
 import com.example.beautyshop.data.models.SectionModel
+import com.example.beautyshop.data.models.SectionResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
@@ -23,7 +24,12 @@ class ServiceViewModel : ViewModel(), IServiceViewModel {
             MainScope().launch(Dispatchers.IO) {
                 try {
                     val response = ApiHelper.getServices().execute()
-                    servicesLiveData.postValue(response.body())
+                    val body = response.body() as SectionResponse
+                    if (body.message.isNullOrEmpty()) {
+                        servicesLiveData.postValue(body.sections ?: mutableListOf())
+                    } else {
+                        isErrorLiveData.postValue(body.message ?: "")
+                    }
                 } catch (e: Exception) {
                     Log.d("error", e.message.toString())
                     isErrorLiveData.postValue(e.message)
