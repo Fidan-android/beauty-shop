@@ -64,7 +64,6 @@ class AddScheduleDialog(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.timePicker.setIs24HourView(true)
-        changedCalendar.clear()
         binding.rvScheduleServices.adapter = adapter
         adapter.onUpdateItems(services)
     }
