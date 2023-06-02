@@ -322,7 +322,6 @@ class RenderAdapter<T>(private val viewType: Int, private val delegate: IItemCli
 
     open class ScheduleTimesViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        private val rootView: FrameLayout = itemView.findViewById(R.id.rootView)
         private val textDay: AppCompatTextView = itemView.findViewById(R.id.textDay)
 
         @SuppressLint("SetTextI18n", "SimpleDateFormat")
@@ -330,7 +329,7 @@ class RenderAdapter<T>(private val viewType: Int, private val delegate: IItemCli
             textDay.text =
                 SimpleDateFormat("HH:mm").format(SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(model.time)!!)
 
-            rootView.setOnClickListener {
+            textDay.setOnClickListener {
                 onClick(model.id)
             }
         }
