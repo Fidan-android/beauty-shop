@@ -20,12 +20,15 @@ class AdminWorkerViewModel : ViewModel(), IAdminWorkerViewModel {
     private val services: MutableLiveData<MutableList<ServiceModel>> = MutableLiveData()
     private val isErrorLiveData: MutableLiveData<String> = MutableLiveData()
 
+    private var selectedMaster = 0
+
     override fun onGetIsLoad() = isProgress
     override fun onGetData() = workersLiveData
     override fun onGetServices() = services
     override fun onGetIsError() = isErrorLiveData
 
     override fun onLoadServices(masterId: Int) {
+        selectedMaster = masterId
         try {
             MainScope().launch(Dispatchers.IO) {
                 try {
@@ -70,7 +73,7 @@ class AdminWorkerViewModel : ViewModel(), IAdminWorkerViewModel {
     override fun onCreateSchedule(serviceId: Int, dateTime: String) {
         MainScope().launch(Dispatchers.IO) {
             try {
-                ApiHelper.createSchedule(ScheduleRequest(serviceId, dateTime)).execute()
+                ApiHelper.createSchedule(ScheduleRequest(selectedMaster, serviceId, dateTime)).execute()
                 onLoadData()
             } catch (e: Exception) {
                 Log.d("error", e.message.toString())
