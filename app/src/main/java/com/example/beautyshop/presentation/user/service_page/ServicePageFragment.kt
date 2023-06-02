@@ -103,7 +103,7 @@ class ServicePageFragment : Fragment() {
             binding.serviceName.text = service.serviceName
             binding.servicePrice.text = service.price
             binding.serviceHours.text = "${service.time} ${service.measurement}."
-            onConfigureCalendar()
+            onConfigureCalendar(Calendar.getInstance().get(Calendar.MONTH))
         }
         viewModel.onGetSchedules().observe(viewLifecycleOwner) {
             val schedule = it.firstOrNull { model -> model.serviceId == args.serviceId }
@@ -133,11 +133,27 @@ class ServicePageFragment : Fragment() {
         viewModel.onGetIsSuccess().observe(viewLifecycleOwner) {
             Snackbar.make(binding.root, it, Snackbar.LENGTH_SHORT).show()
         }
+
+        binding.nextMonth.setOnClickListener {
+            binding.currentMonth.visibility = View.VISIBLE
+            binding.nextMonth.visibility = View.GONE
+            clearForm()
+            binding.currentCalendarView.onReset()
+            onConfigureCalendar(Calendar.getInstance().get(Calendar.MONTH) + 1)
+        }
+
+        binding.currentMonth.setOnClickListener {
+            binding.currentMonth.visibility = View.GONE
+            binding.nextMonth.visibility = View.VISIBLE
+            clearForm()
+            binding.currentCalendarView.onReset()
+            onConfigureCalendar(Calendar.getInstance().get(Calendar.MONTH))
+        }
     }
 
-    private fun onConfigureCalendar() {
+    private fun onConfigureCalendar(month: Int) {
         binding.currentCalendarView.onConfigure(
-            Calendar.getInstance().get(Calendar.MONTH),
+            month,
             object : CustomCalendarView.ICustomCalendarListener {
                 @SuppressLint("SimpleDateFormat")
                 override fun addItem(date: Date) {
