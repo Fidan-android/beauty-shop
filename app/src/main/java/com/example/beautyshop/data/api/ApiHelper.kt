@@ -10,7 +10,7 @@ object ApiHelper {
 
     suspend fun registration(body: RegistrationRequest) = apiService.registration(body)
 
-    fun getServices() = apiService.getServices()
+    fun getServices(masterId: Int? = null) = apiService.getServices(masterId)
 
     fun getProfile() = apiService.getProfile()
 

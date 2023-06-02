@@ -252,7 +252,7 @@ class RenderAdapter<T>(private val viewType: Int, private val delegate: IItemCli
 
         @SuppressLint("SetTextI18n", "SimpleDateFormat")
         open fun onBind(model: AppointmentModel, onClick: (Int) -> Unit) {
-            userName.text = model.user
+            userName.text = "${model.user}  ${model.phone}"
             serviceInfo.text = itemView.context.getString(
                 R.string.appointment_to,
                 model.master,
@@ -279,7 +279,7 @@ class RenderAdapter<T>(private val viewType: Int, private val delegate: IItemCli
 
         @SuppressLint("SetTextI18n", "SimpleDateFormat")
         open fun onBind(model: AppointmentModel, onClick: (Int) -> Unit) {
-            userName.text = model.user
+            userName.text = "${model.user}  ${model.phone}"
             serviceInfo.text = itemView.context.getString(
                 R.string.appointment_to,
                 model.master,

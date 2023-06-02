@@ -30,6 +30,9 @@ import com.example.beautyshop.helper.removeShared
 import com.example.beautyshop.helper.toIso
 import com.example.beautyshop.presentation.adapters.RenderAdapter
 import com.example.beautyshop.presentation.auth.LoginActivity
+import com.example.beautyshop.presentation.dialogs.ITextDialogWithYesNo
+import com.example.beautyshop.presentation.dialogs.TextDialogWithYesNo
+import com.example.beautyshop.presentation.root.MainActivity
 import com.google.android.material.snackbar.Snackbar
 import java.io.File
 import java.io.InputStream
@@ -49,7 +52,16 @@ class ProfileFragment : Fragment() {
             RenderViewType.AppointmentsViewType.viewType,
             object : RenderAdapter.IItemClickListener {
                 override fun onClick(position: Int) {
-                    viewModel.onCancelAppointment(position)
+                    (requireActivity() as MainActivity).onShowDialogFragment(
+                        TextDialogWithYesNo(
+                            "Вы действительно хотите отменить запись?",
+                            object : ITextDialogWithYesNo {
+                                override fun onAccept() {
+                                    viewModel.onCancelAppointment(position)
+                                }
+                            }
+                        )
+                    )
                 }
             }
         )
@@ -85,10 +97,24 @@ class ProfileFragment : Fragment() {
     override fun onStart() {
         super.onStart()
         binding.logOut.setOnClickListener {
-            requireContext().removeShared(SharedKeys.AccessToken)
+            (requireActivity() as MainActivity).onShowDialogFragment(
+                TextDialogWithYesNo(
+                    "Вы хотите выйти?",
+                    object : ITextDialogWithYesNo {
+                        override fun onAccept() {
+                            requireContext().removeShared(SharedKeys.AccessToken)
 
-            requireActivity().startActivity(Intent(requireContext(), LoginActivity::class.java))
-            requireActivity().finish()
+                            requireActivity().startActivity(
+                                Intent(
+                                    requireContext(),
+                                    LoginActivity::class.java
+                                )
+                            )
+                            requireActivity().finish()
+                        }
+                    }
+                )
+            )
         }
 
         binding.imageProfile.setOnClickListener {

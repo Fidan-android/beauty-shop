@@ -24,7 +24,7 @@ interface ApiService {
     ): Call<Any>
 
     @GET("services/")
-    fun getServices(): Call<SectionResponse>
+    fun getServices(@Query("master_id") masterId: Int? = null): Call<SectionResponse>
 
     @GET("users/")
     fun getUsers(@Query("role") role: Int): Call<UsersResponse>

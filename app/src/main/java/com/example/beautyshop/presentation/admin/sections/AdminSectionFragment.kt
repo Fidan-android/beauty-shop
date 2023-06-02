@@ -12,6 +12,8 @@ import com.example.beautyshop.databinding.FragmentAdminSectionBinding
 import com.example.beautyshop.presentation.adapters.RenderAdapter
 import com.example.beautyshop.presentation.admin.sections.add_section.AddSectionDialog
 import com.example.beautyshop.presentation.admin.sections.page.PageSectionDialog
+import com.example.beautyshop.presentation.dialogs.ITextDialogWithYesNo
+import com.example.beautyshop.presentation.dialogs.TextDialogWithYesNo
 import com.example.beautyshop.presentation.root.MainActivity
 
 class AdminSectionFragment : Fragment() {
@@ -31,11 +33,29 @@ class AdminSectionFragment : Fragment() {
                             viewModel.onGetData().value!!.first { item -> item.id == position },
                             object : PageSectionDialog.IPageSectionDialog {
                                 override fun onEdit(sectionId: Int, sectionName: String) {
-                                    viewModel.onEditSection(sectionId, sectionName)
+                                    (requireActivity() as MainActivity).onShowDialogFragment(
+                                        TextDialogWithYesNo(
+                                            "Вы действительно хотите изменить секцию?",
+                                            object: ITextDialogWithYesNo {
+                                                override fun onAccept() {
+                                                    viewModel.onEditSection(sectionId, sectionName)
+                                                }
+                                            }
+                                        )
+                                    )
                                 }
 
                                 override fun onDelete(sectionId: Int) {
-                                    viewModel.onRemoveSection(sectionId)
+                                    (requireActivity() as MainActivity).onShowDialogFragment(
+                                        TextDialogWithYesNo(
+                                            "Вы действительно хотите удалить секцию?",
+                                            object: ITextDialogWithYesNo {
+                                                override fun onAccept() {
+                                                    viewModel.onRemoveSection(sectionId)
+                                                }
+                                            }
+                                        )
+                                    )
                                 }
                             }
                         )
@@ -66,7 +86,16 @@ class AdminSectionFragment : Fragment() {
             (requireActivity() as MainActivity).onShowDialogFragment(AddSectionDialog(object :
                 AddSectionDialog.IAddSectionDialog {
                 override fun onAccept(sectionName: String) {
-                    viewModel.onCreateSection(sectionName)
+                    (requireActivity() as MainActivity).onShowDialogFragment(
+                        TextDialogWithYesNo(
+                            "Вы хотите создать секцию?",
+                            object: ITextDialogWithYesNo {
+                                override fun onAccept() {
+                                    viewModel.onCreateSection(sectionName)
+                                }
+                            }
+                        )
+                    )
                 }
             }))
         }

@@ -33,6 +33,7 @@ class RegistrationFragment : Fragment() {
         binding.btnRegistration.setOnClickListener {
             viewModel.onRegister(
                 binding.etEmail.text.toString(),
+                binding.etPhone.text.toString(),
                 binding.etFirstName.text.toString(),
                 binding.etSecondName.text.toString(),
                 binding.etPassword.text.toString(),

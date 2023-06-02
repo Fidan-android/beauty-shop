@@ -93,6 +93,7 @@ class AddScheduleDialog(
             changedCalendar.set(Calendar.HOUR_OF_DAY, hours)
             changedCalendar.set(Calendar.MINUTE, minutes)
         }
+
         binding.btnCreateSchedule.setOnClickListener {
             delegate.onAccept(
                 changedService,

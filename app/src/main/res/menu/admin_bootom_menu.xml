@@ -17,6 +17,11 @@
         android:title="@string/title_master" />
 
     <item
+        android:id="@+id/adminUserFragment"
+        android:icon="@drawable/ic_users"
+        android:title="@string/title_users" />
+
+    <item
         android:id="@+id/adminProfileFragment"
         android:icon="@drawable/ic_profile"
         android:title="@string/title_profile" />

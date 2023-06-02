@@ -19,8 +19,9 @@ import com.example.beautyshop.data.models.ScheduleModel
 import com.example.beautyshop.databinding.FragmentServicePageBinding
 import com.example.beautyshop.presentation.adapters.RenderAdapter
 import com.example.beautyshop.presentation.custom.CustomCalendarView
+import com.example.beautyshop.presentation.dialogs.ITextDialogWithYesNo
+import com.example.beautyshop.presentation.dialogs.TextDialogWithYesNo
 import com.example.beautyshop.presentation.root.MainActivity
-import com.example.beautyshop.presentation.user.service_page.create_appointment.AddAppointmentDialog
 import com.google.android.material.snackbar.Snackbar
 import java.text.SimpleDateFormat
 import java.util.*
@@ -38,13 +39,16 @@ class ServicePageFragment : Fragment() {
             object : RenderAdapter.IItemClickListener {
                 override fun onClick(position: Int) {
                     (requireActivity() as MainActivity).onShowDialogFragment(
-                        AddAppointmentDialog(object : AddAppointmentDialog.IAddAppointmentDialog {
-                            override fun onAccept(phone: String) {
-                                viewModel.onCreateAppointment(position, phone)
-                                clearForm()
-                                binding.calendarView.onReset()
+                        TextDialogWithYesNo(
+                            "Вы действительно хотите создать заявку?",
+                            object : ITextDialogWithYesNo {
+                                override fun onAccept() {
+                                    viewModel.onCreateAppointment(position)
+                                    clearForm()
+                                    binding.currentCalendarView.onReset()
+                                }
                             }
-                        })
+                        )
                     )
                 }
             }
@@ -132,7 +136,7 @@ class ServicePageFragment : Fragment() {
     }
 
     private fun onConfigureCalendar() {
-        binding.calendarView.onConfigure(
+        binding.currentCalendarView.onConfigure(
             Calendar.getInstance().get(Calendar.MONTH),
             object : CustomCalendarView.ICustomCalendarListener {
                 @SuppressLint("SimpleDateFormat")

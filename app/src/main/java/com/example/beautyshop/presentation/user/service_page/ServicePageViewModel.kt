@@ -75,11 +75,11 @@ class ServicePageViewModel : ViewModel(), IServicePageViewModel {
         }
     }
 
-    override fun onCreateAppointment(scheduleId: Int, phone: String) {
+    override fun onCreateAppointment(scheduleId: Int) {
         MainScope().launch(Dispatchers.IO) {
             try {
                 val response =
-                    ApiHelper.createAppointment(CreateAppointmentRequest(scheduleId, phone))
+                    ApiHelper.createAppointment(CreateAppointmentRequest(scheduleId))
                         .execute()
                 if (response.body()?.message != "success") {
                     isErrorLiveData.postValue(response.body()?.message ?: "")

@@ -40,8 +40,6 @@
                 android:layout_gravity="bottom"
                 android:layout_margin="20dp"
                 android:clickable="true"
-                android:drawableEnd="@drawable/ic_edit"
-                android:drawableTint="@color/white"
                 android:focusable="true"
                 android:textColor="@color/white"
                 android:textSize="22sp"

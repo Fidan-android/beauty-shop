@@ -8,6 +8,7 @@ interface IRegistrationViewModel {
     fun onGetIsError(): MutableLiveData<String>
     fun onRegister(
         login: String,
+        phone: String,
         firstName: String,
         name: String,
         password: String,

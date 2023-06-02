@@ -15,5 +15,5 @@ interface IServicePageViewModel {
     fun onGetIsSuccess(): MutableLiveData<String>
     fun onGetScheduleTimes(serviceId: Int, date: Date): MutableList<ScheduleModel>
     fun onLoadData()
-    fun onCreateAppointment(scheduleId: Int, phone: String)
+    fun onCreateAppointment(scheduleId: Int)
 }

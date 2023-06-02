@@ -30,6 +30,9 @@ import com.example.beautyshop.helper.removeShared
 import com.example.beautyshop.helper.toIso
 import com.example.beautyshop.presentation.adapters.RenderAdapter
 import com.example.beautyshop.presentation.auth.LoginActivity
+import com.example.beautyshop.presentation.dialogs.ITextDialogWithYesNo
+import com.example.beautyshop.presentation.dialogs.TextDialogWithYesNo
+import com.example.beautyshop.presentation.root.MainActivity
 import com.google.android.material.snackbar.Snackbar
 import java.io.File
 import java.io.InputStream
@@ -86,10 +89,19 @@ class MasterProfileFragment : Fragment() {
     override fun onStart() {
         super.onStart()
         binding.logOut.setOnClickListener {
-            requireContext().removeShared(SharedKeys.AccessToken)
+            (requireActivity() as MainActivity).onShowDialogFragment(
+                TextDialogWithYesNo(
+                    "Вы хотите выйти?",
+                    object : ITextDialogWithYesNo {
+                        override fun onAccept() {
+                            requireContext().removeShared(SharedKeys.AccessToken)
 
-            requireActivity().startActivity(Intent(requireContext(), LoginActivity::class.java))
-            requireActivity().finish()
+                            requireActivity().startActivity(Intent(requireContext(), LoginActivity::class.java))
+                            requireActivity().finish()
+                        }
+                    }
+                )
+            )
         }
 
         binding.imageProfile.setOnClickListener {

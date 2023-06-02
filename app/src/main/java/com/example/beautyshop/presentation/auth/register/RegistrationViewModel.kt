@@ -21,12 +21,13 @@ class RegistrationViewModel : ViewModel(), IRegistrationViewModel {
 
     override fun onRegister(
         login: String,
+        phone: String,
         firstName: String,
         name: String,
         password: String,
         repeatPassword: String
     ) {
-        if (firstName.isEmpty() || name.isEmpty() || login.isEmpty() || password.isEmpty()) {
+        if (firstName.isEmpty() || name.isEmpty() || login.isEmpty() || phone.isEmpty() || password.isEmpty()) {
             isError.value = "Все поля должны быть заполнены"
             return
         }
@@ -52,6 +53,7 @@ class RegistrationViewModel : ViewModel(), IRegistrationViewModel {
                 ApiHelper.registration(
                     RegistrationRequest(
                         email = login,
+                        phone = phone,
                         firstName = firstName,
                         name = name,
                         password = password

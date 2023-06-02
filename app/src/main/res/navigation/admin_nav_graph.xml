@@ -21,6 +21,11 @@
         android:label="AdminProfileFragment"
         tools:layout="@layout/fragment_admin_profile" />
     <fragment
+        android:id="@+id/adminUserFragment"
+        android:name="com.example.beautyshop.presentation.admin.users.AdminUserFragment"
+        android:label="AdminUserFragment"
+        tools:layout="@layout/fragment_admin_worker" />
+    <fragment
         android:id="@+id/adminWorkerFragment"
         android:name="com.example.beautyshop.presentation.admin.workers.AdminWorkerFragment"
         android:label="AdminWorkerFragment"

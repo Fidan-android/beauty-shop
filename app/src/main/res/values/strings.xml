@@ -53,6 +53,9 @@
     <string name="enter_description">Введите описание (не обязательно)</string>
     <string name="next">Далее</string>
     <string name="choose_photo">Выбрать фото</string>
+    <string name="yes">Да</string>
+    <string name="no">Нет</string>
+    <string name="title_users">Пользователи</string>
     <string-array name="times">
         <item>час</item>
         <item>мин</item>

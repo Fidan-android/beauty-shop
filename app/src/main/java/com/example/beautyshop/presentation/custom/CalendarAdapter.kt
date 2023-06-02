@@ -43,9 +43,10 @@ class CalendarAdapter(
                     delegate.onClick(position, isActivated)
                 }
 
-                isEnabled = calendar.get(Calendar.MONTH) >= Calendar.getInstance()
+                isEnabled = (calendar.get(Calendar.MONTH) == Calendar.getInstance()
                     .get(Calendar.MONTH) && calendar.get(Calendar.DAY_OF_MONTH) > Calendar.getInstance()
-                    .get(Calendar.DAY_OF_MONTH)
+                    .get(Calendar.DAY_OF_MONTH)) || (calendar.get(Calendar.MONTH) > Calendar.getInstance()
+                    .get(Calendar.MONTH))
 
                 isActivated = changedPosition == position
             }

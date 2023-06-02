@@ -9,6 +9,4 @@ interface IScheduleViewModel {
     fun onGetData(): MutableLiveData<MutableList<ScheduleModel>>
     fun onGetIsError(): MutableLiveData<String>
     fun onLoadData()
-    fun onGetServices(): MutableLiveData<MutableList<ServiceModel>>
-    fun onCreateSchedule(serviceId: Int, dateTime: String)
 }

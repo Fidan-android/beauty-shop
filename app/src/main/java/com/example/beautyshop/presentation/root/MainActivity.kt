@@ -157,6 +157,9 @@ class MainActivity : AppCompatActivity(), IMainActivity {
                     R.id.adminWorkerFragment -> {
                         navHostFragment.navController.navigate(R.id.adminWorkerFragment)
                     }
+                    R.id.adminUserFragment -> {
+                        navHostFragment.navController.navigate(R.id.adminUserFragment)
+                    }
                     R.id.adminProfileFragment -> {
                         navHostFragment.navController.navigate(R.id.adminProfileFragment)
                     }

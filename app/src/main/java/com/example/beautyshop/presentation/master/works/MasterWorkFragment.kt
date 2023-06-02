@@ -9,9 +9,10 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.beautyshop.conventions.RenderViewType
 import com.example.beautyshop.data.models.WorkModel
-import com.example.beautyshop.data.models.WorkOfMasterModel
 import com.example.beautyshop.databinding.FragmentMasterWorkBinding
 import com.example.beautyshop.presentation.adapters.RenderAdapter
+import com.example.beautyshop.presentation.dialogs.ITextDialogWithYesNo
+import com.example.beautyshop.presentation.dialogs.TextDialogWithYesNo
 import com.example.beautyshop.presentation.master.works.add_work.AddWorkDialog
 import com.example.beautyshop.presentation.root.MainActivity
 import com.google.android.material.snackbar.Snackbar
@@ -29,7 +30,16 @@ class MasterWorkFragment : Fragment() {
             RenderViewType.WorksViewType.viewType,
             object : RenderAdapter.IItemClickListener {
                 override fun onClick(position: Int) {
-                    viewModel.onRemoveWork(position)
+                    (requireActivity() as MainActivity).onShowDialogFragment(
+                        TextDialogWithYesNo(
+                            "Вы действительно хотите удалить фото работы?",
+                            object : ITextDialogWithYesNo {
+                                override fun onAccept() {
+                                   viewModel.onRemoveWork(position)
+                                }
+                            }
+                        )
+                    )
                 }
             }
         )
@@ -64,7 +74,16 @@ class MasterWorkFragment : Fragment() {
             (requireActivity() as MainActivity).onShowDialogFragment(AddWorkDialog(object :
                 AddWorkDialog.IAddWorkDialog {
                 override fun onAccept(path: String, description: String) {
-                    viewModel.onAddWork(path, description)
+                    (requireActivity() as MainActivity).onShowDialogFragment(
+                        TextDialogWithYesNo(
+                            "Вы действительно хотите добавить фото работы?",
+                            object: ITextDialogWithYesNo {
+                                override fun onAccept() {
+                                    viewModel.onAddWork(path, description)
+                                }
+                            }
+                        )
+                    )
                 }
             }))
         }

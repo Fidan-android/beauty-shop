@@ -14,6 +14,8 @@ import com.example.beautyshop.presentation.adapters.RenderAdapter
 import com.example.beautyshop.presentation.admin.services.page.AddServiceDialog
 import com.example.beautyshop.presentation.admin.services.page.AddWorkersDialog
 import com.example.beautyshop.presentation.admin.services.page.SectionServicesDialog
+import com.example.beautyshop.presentation.dialogs.ITextDialogWithYesNo
+import com.example.beautyshop.presentation.dialogs.TextDialogWithYesNo
 import com.example.beautyshop.presentation.root.MainActivity
 
 class AdminServiceFragment : Fragment() {
@@ -42,12 +44,21 @@ class AdminServiceFragment : Fragment() {
                                                     time: Float,
                                                     measurement: String
                                                 ) {
-                                                    viewModel.onCreateService(
-                                                        sectionId,
-                                                        serviceName,
-                                                        price,
-                                                        time,
-                                                        measurement
+                                                    (requireActivity() as MainActivity).onShowDialogFragment(
+                                                        TextDialogWithYesNo(
+                                                            "Вы действительно хотите добавить услугу в секцию?",
+                                                            object : ITextDialogWithYesNo {
+                                                                override fun onAccept() {
+                                                                    viewModel.onCreateService(
+                                                                        sectionId,
+                                                                        serviceName,
+                                                                        price,
+                                                                        time,
+                                                                        measurement
+                                                                    )
+                                                                }
+                                                            }
+                                                        )
                                                     )
                                                 }
                                             }
@@ -61,9 +72,22 @@ class AdminServiceFragment : Fragment() {
                                             viewModel.onGetWorkers().value ?: mutableListOf(),
                                             object : AddWorkersDialog.IAddWorkersDialog {
                                                 override fun onAddMaster(userId: Int) {
-                                                    viewModel.onAddMaster(sectionId, userId)
+                                                    (requireActivity() as MainActivity).onShowDialogFragment(
+                                                        TextDialogWithYesNo(
+                                                            "Вы действительно хотите добавить мастера к секции?",
+                                                            object : ITextDialogWithYesNo {
+                                                                override fun onAccept() {
+                                                                    viewModel.onAddMaster(
+                                                                        sectionId,
+                                                                        userId
+                                                                    )
+                                                                }
+                                                            }
+                                                        )
+                                                    )
                                                 }
-                                            })
+                                            }
+                                        )
                                     )
                                 }
 
@@ -78,12 +102,21 @@ class AdminServiceFragment : Fragment() {
                                                     time: Float,
                                                     measurement: String
                                                 ) {
-                                                    viewModel.onEditService(
-                                                        serviceModel.id,
-                                                        serviceName,
-                                                        price,
-                                                        time,
-                                                        measurement
+                                                    (requireActivity() as MainActivity).onShowDialogFragment(
+                                                        TextDialogWithYesNo(
+                                                            "Вы действительно хотите изменить услугу?",
+                                                            object : ITextDialogWithYesNo {
+                                                                override fun onAccept() {
+                                                                    viewModel.onEditService(
+                                                                        serviceModel.id,
+                                                                        serviceName,
+                                                                        price,
+                                                                        time,
+                                                                        measurement
+                                                                    )
+                                                                }
+                                                            }
+                                                        )
                                                     )
                                                 }
                                             }
@@ -92,7 +125,16 @@ class AdminServiceFragment : Fragment() {
                                 }
 
                                 override fun onDelete(serviceId: Int) {
-                                    viewModel.onDeleteService(serviceId)
+                                    (requireActivity() as MainActivity).onShowDialogFragment(
+                                        TextDialogWithYesNo(
+                                            "Вы действительно хотите удалить услугу?",
+                                            object : ITextDialogWithYesNo {
+                                                override fun onAccept() {
+                                                    viewModel.onDeleteService(serviceId)
+                                                }
+                                            }
+                                        )
+                                    )
                                 }
 
                             }

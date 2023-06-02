@@ -1,4 +1,4 @@
-package com.example.beautyshop.presentation.admin.workers.dialog
+package com.example.beautyshop.presentation.dialogs
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,18 +6,19 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import com.example.beautyshop.R
-import com.example.beautyshop.databinding.DialogAddWorkerBinding
+import com.example.beautyshop.databinding.TextDialogWithYesNoBinding
 
 
-class AddWorkerDialog(
-    private val delegate: IAddWorkerDialog
+interface ITextDialogWithYesNo {
+    fun onAccept()
+}
+
+class TextDialogWithYesNo(
+    private val titleDialog: String,
+    private val delegate: ITextDialogWithYesNo
 ) : DialogFragment() {
 
-    interface IAddWorkerDialog {
-        fun onAccept()
-    }
-
-    private var _binding: DialogAddWorkerBinding? = null
+    private var _binding: TextDialogWithYesNoBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,18 +35,22 @@ class AddWorkerDialog(
         val height = ViewGroup.LayoutParams.MATCH_PARENT
         dialog?.window?.setLayout(width, height)
         dialog?.window?.setBackgroundDrawableResource(android.R.color.transparent)
-        _binding = DialogAddWorkerBinding.inflate(inflater, container, false)
+        _binding = TextDialogWithYesNoBinding.inflate(inflater, container, false)
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.titleDialog.text = titleDialog
     }
 
     override fun onStart() {
         super.onStart()
-        binding.root.setOnClickListener {
+        binding.btnYes.setOnClickListener {
+            delegate.onAccept()
             dismissAllowingStateLoss()
         }
-
-        binding.btnAddMaster.setOnClickListener {
-            delegate.onAccept()
+        binding.btnNo.setOnClickListener {
             dismissAllowingStateLoss()
         }
     }
@@ -53,6 +58,7 @@ class AddWorkerDialog(
     override fun onStop() {
         super.onStop()
         binding.root.setOnClickListener(null)
-        binding.btnAddMaster.setOnClickListener(null)
+        binding.btnYes.setOnClickListener(null)
+        binding.btnNo.setOnClickListener(null)
     }
 }
