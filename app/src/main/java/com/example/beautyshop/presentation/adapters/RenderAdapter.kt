@@ -10,6 +10,7 @@ import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.model.GlideUrl
 import com.bumptech.glide.load.model.LazyHeaders
 import com.example.beautyshop.R
@@ -354,6 +355,8 @@ class RenderAdapter<T>(private val viewType: Int, private val delegate: IItemCli
                             .build()
                     )
                 )
+                .skipMemoryCache(true)
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .centerCrop()
                 .error(R.drawable.sample_avatar)
                 .into(photoView)
@@ -380,6 +383,8 @@ class RenderAdapter<T>(private val viewType: Int, private val delegate: IItemCli
                             .build()
                     )
                 )
+                .skipMemoryCache(true)
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .centerCrop()
                 .error(R.drawable.sample_avatar)
                 .into(photoView)
