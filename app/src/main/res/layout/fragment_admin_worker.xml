@@ -47,7 +47,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:fontFamily="@font/charlington"
-                    android:text="Мастера"
+                    android:text="@string/title_master"
                     android:textColor="@color/white"
                     android:textSize="18sp" />
             </LinearLayout>

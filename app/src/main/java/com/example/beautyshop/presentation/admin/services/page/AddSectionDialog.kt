@@ -1,4 +1,4 @@
-package com.example.beautyshop.presentation.admin.sections.add_section
+package com.example.beautyshop.presentation.admin.services.page
 
 import android.os.Bundle
 import android.view.LayoutInflater

@@ -10,6 +10,9 @@ interface IAdminServiceViewModel {
     fun onGetData(): MutableLiveData<MutableList<SectionModel>>
     fun onGetIsError(): MutableLiveData<String>
     fun onLoadData()
+    fun onCreateSection(sectionName: String)
+    fun onEditSection(sectionId: Int, sectionName: String)
+    fun onRemoveSection(sectionId: Int)
     fun onCreateService(
         sectionId: Int,
         serviceName: String,

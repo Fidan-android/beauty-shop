@@ -60,17 +60,6 @@ class MasterProfileFragment : Fragment() {
         )
     }
 
-    private val adapter: RenderAdapter<AppointmentModel> by lazy {
-        RenderAdapter(
-            RenderViewType.MasterAppointmentsViewType.viewType,
-            object : RenderAdapter.IItemClickListener {
-                override fun onClick(position: Int) {
-
-                }
-            }
-        )
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -82,7 +71,6 @@ class MasterProfileFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.rvAppointments.adapter = adapter
     }
 
     @SuppressLint("SetTextI18n")
@@ -132,9 +120,6 @@ class MasterProfileFragment : Fragment() {
                     .error(R.drawable.sample_avatar)
                     .into(binding.imageProfile)
             }
-        }
-        viewModel.onGetAppointments().observe(viewLifecycleOwner) {
-            adapter.onUpdateItems(it)
         }
         viewModel.onGetIsError().observe(viewLifecycleOwner) {
             Snackbar.make(binding.root, it, Snackbar.LENGTH_SHORT).show()

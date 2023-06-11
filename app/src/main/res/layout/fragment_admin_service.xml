@@ -18,21 +18,21 @@
         tools:itemCount="4"
         tools:listitem="@layout/admin_section_cell" />
 
-    <!--    <androidx.appcompat.widget.AppCompatButton-->
-    <!--        android:id="@+id/btnCreateSection"-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="50dp"-->
-    <!--        android:layout_gravity="center"-->
-    <!--        android:layout_marginHorizontal="50dp"-->
-    <!--        android:layout_marginBottom="25dp"-->
-    <!--        android:background="@drawable/bg_button"-->
-    <!--        android:clickable="true"-->
-    <!--        android:focusable="true"-->
-    <!--        android:fontFamily="@font/antropos_freefont"-->
-    <!--        android:text="@string/create_new_service"-->
-    <!--        android:textAllCaps="false"-->
-    <!--        android:textColor="@color/white"-->
-    <!--        android:textSize="16sp"-->
-    <!--        app:layout_constraintBottom_toBottomOf="parent" />-->
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnCreateSection"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:layout_marginHorizontal="50dp"
+        android:layout_marginBottom="25dp"
+        android:background="@drawable/bg_button"
+        android:clickable="true"
+        android:focusable="true"
+        android:fontFamily="@font/antropos_freefont"
+        android:text="@string/create_new_section"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

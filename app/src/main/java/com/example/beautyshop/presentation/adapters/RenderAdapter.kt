@@ -211,14 +211,18 @@ class RenderAdapter<T>(private val viewType: Int, private val delegate: IItemCli
 
     open class AdminSectionsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        private val rootView: MaterialCardView = itemView.findViewById(R.id.rootView)
         private val sectionName: AppCompatTextView = itemView.findViewById(R.id.sectionName)
+        private val editSection: AppCompatImageView = itemView.findViewById(R.id.editSection)
+        private val moreActions: AppCompatImageView = itemView.findViewById(R.id.moreActions)
 
         @SuppressLint("SetTextI18n")
         open fun onBind(model: SectionModel, onClick: (Int) -> Unit) {
             sectionName.text = model.sectionName
 
-            rootView.setOnClickListener {
+            editSection.setOnClickListener {
+                onClick(model.id * -1)
+            }
+            moreActions.setOnClickListener {
                 onClick(model.id)
             }
         }
@@ -282,12 +286,9 @@ class RenderAdapter<T>(private val viewType: Int, private val delegate: IItemCli
         open fun onBind(model: AppointmentModel, onClick: (Int) -> Unit) {
             userName.text = "${model.user}  ${model.phone}"
             serviceInfo.text = itemView.context.getString(
-                R.string.appointment_to,
-                model.master,
-                SimpleDateFormat("dd MMMM yyyy HH:mm").format(
-                    SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(
-                        model.scheduleTime
-                    )!!
+                R.string.master_appointment_to,
+                SimpleDateFormat("dd MMMM в HH:mm").format(
+                    SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(model.scheduleTime)!!
                 )
             )
             serviceName.text = itemView.context.getString(R.string.service_name, model.serviceName)
@@ -308,7 +309,7 @@ class RenderAdapter<T>(private val viewType: Int, private val delegate: IItemCli
             scheduleInfo.text = itemView.context.getString(R.string.service_name, model.serviceName)
             scheduleTime.text = itemView.context.getString(
                 R.string.service_time,
-                SimpleDateFormat("dd MMMM yyyy HH:mm").format(
+                SimpleDateFormat("dd MMMM в HH:mm").format(
                     SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(
                         model.time
                     )!!

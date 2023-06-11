@@ -35,6 +35,10 @@ class RegistrationViewModel : ViewModel(), IRegistrationViewModel {
             isError.value = "Неверный формат почты"
             return
         }
+        if (!phone.matches(Regex("^(\\+7|8)\\d{10}\$"))) {
+            isError.value = "Неверный формат телефона"
+            return
+        }
         if (password.length < 6) {
             isError.value = "Пароль должен содержать не менее 6 символов"
             return

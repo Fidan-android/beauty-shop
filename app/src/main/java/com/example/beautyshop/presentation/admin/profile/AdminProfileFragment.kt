@@ -152,7 +152,6 @@ class AdminProfileFragment : Fragment() {
         viewModel.onGetIsError().observe(viewLifecycleOwner) {
             Snackbar.make(binding.root, it, Snackbar.LENGTH_SHORT).show()
         }
-        viewModel.onLoadData()
     }
 
     private val galleryPermissionResultCallback = ActivityResultCallback<Boolean> {

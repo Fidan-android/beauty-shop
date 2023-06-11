@@ -10,5 +10,4 @@ interface IMasterProfileViewModel {
     fun onGetIsError(): MutableLiveData<String>
     fun onLoadData()
     fun changeImageProfile(path: String)
-    fun onGetAppointments(): MutableLiveData<MutableList<AppointmentModel>>
 }

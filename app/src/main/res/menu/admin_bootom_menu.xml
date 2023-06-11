@@ -2,11 +2,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/adminSectionFragment"
-        android:icon="@drawable/ic_section"
-        android:title="@string/title_section" />
-
-    <item
         android:id="@+id/adminServiceFragment"
         android:icon="@drawable/ic_services"
         android:title="@string/title_nails" />
@@ -20,6 +15,11 @@
         android:id="@+id/adminUserFragment"
         android:icon="@drawable/ic_users"
         android:title="@string/title_users" />
+
+    <item
+        android:id="@+id/adminScheduleFragment"
+        android:icon="@drawable/ic_schedule"
+        android:title="@string/title_graphic" />
 
     <item
         android:id="@+id/adminProfileFragment"

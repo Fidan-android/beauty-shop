@@ -9,12 +9,18 @@ import com.example.beautyshop.data.models.SectionModel
 import com.example.beautyshop.data.models.SectionResponse
 import com.example.beautyshop.models.EditServiceRequest
 import com.example.beautyshop.models.SectionMasterRequest
+import com.example.beautyshop.models.SectionRequest
 import com.example.beautyshop.models.ServiceRequest
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
 
 class AdminServiceViewModel : ViewModel(), IAdminServiceViewModel {
+
+    init {
+        onLoadData()
+    }
+
     private val isProgress: MutableLiveData<Boolean> = MutableLiveData(false)
     private val servicesLiveData: MutableLiveData<MutableList<SectionModel>> = MutableLiveData()
     private val workersLiveData: MutableLiveData<MutableList<ProfileModel>> = MutableLiveData()
@@ -44,6 +50,62 @@ class AdminServiceViewModel : ViewModel(), IAdminServiceViewModel {
                 Log.d("error", e.message.toString())
                 isErrorLiveData.postValue(e.message)
             }
+        }
+    }
+
+    override fun onCreateSection(sectionName: String) {
+        try {
+            MainScope().launch(Dispatchers.IO) {
+                val response =
+                    ApiHelper.createSection(SectionRequest(sectionName = sectionName)).execute()
+                if (response.isSuccessful) {
+                    when (response.body()?.message) {
+                        "success" -> onLoadData()
+                        "error" -> isErrorLiveData.postValue("Что-то пошло не так")
+                    }
+                }
+            }
+        } catch (ex: Exception) {
+            ex.printStackTrace()
+        }
+    }
+
+    override fun onEditSection(sectionId: Int, sectionName: String) {
+        try {
+            MainScope().launch(Dispatchers.IO) {
+                val response =
+                    ApiHelper.editSection(
+                        SectionRequest(
+                            sectionId = sectionId,
+                            sectionName = sectionName
+                        )
+                    ).execute()
+                if (response.isSuccessful) {
+                    when (response.body()?.message) {
+                        "success" -> onLoadData()
+                        "error" -> isErrorLiveData.postValue("Что-то пошло не так")
+                    }
+                }
+            }
+        } catch (ex: Exception) {
+            ex.printStackTrace()
+        }
+    }
+
+    override fun onRemoveSection(sectionId: Int) {
+        try {
+            MainScope().launch(Dispatchers.IO) {
+                val response =
+                    ApiHelper.removeSection(SectionRequest(sectionId = sectionId)).execute()
+                if (response.isSuccessful) {
+                    when (response.body()?.message) {
+                        "success" -> onLoadData()
+                        "error" -> isErrorLiveData.postValue("Что-то пошло не так")
+                    }
+                }
+            }
+        } catch (ex: Exception) {
+            ex.printStackTrace()
         }
     }
 

@@ -1,4 +1,4 @@
-package com.example.beautyshop.presentation.admin.sections.page
+package com.example.beautyshop.presentation.admin.services.page
 
 import android.os.Bundle
 import android.text.Editable

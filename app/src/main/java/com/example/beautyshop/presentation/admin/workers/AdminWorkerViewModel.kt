@@ -15,6 +15,10 @@ import kotlinx.coroutines.launch
 
 class AdminWorkerViewModel : ViewModel(), IAdminWorkerViewModel {
 
+    init {
+        onLoadData()
+    }
+
     private val isProgress: MutableLiveData<Boolean> = MutableLiveData(false)
     private val workersLiveData: MutableLiveData<MutableList<ProfileModel>> = MutableLiveData()
     private val services: MutableLiveData<MutableList<ServiceModel>> = MutableLiveData()

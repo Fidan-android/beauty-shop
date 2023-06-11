@@ -11,9 +11,7 @@ import com.example.beautyshop.data.models.SectionModel
 import com.example.beautyshop.data.models.ServiceModel
 import com.example.beautyshop.databinding.FragmentAdminServiceBinding
 import com.example.beautyshop.presentation.adapters.RenderAdapter
-import com.example.beautyshop.presentation.admin.services.page.AddServiceDialog
-import com.example.beautyshop.presentation.admin.services.page.AddWorkersDialog
-import com.example.beautyshop.presentation.admin.services.page.SectionServicesDialog
+import com.example.beautyshop.presentation.admin.services.page.*
 import com.example.beautyshop.presentation.dialogs.ITextDialogWithYesNo
 import com.example.beautyshop.presentation.dialogs.TextDialogWithYesNo
 import com.example.beautyshop.presentation.root.MainActivity
@@ -30,118 +28,164 @@ class AdminServiceFragment : Fragment() {
             RenderViewType.AdminSectionsViewType.viewType,
             object : RenderAdapter.IItemClickListener {
                 override fun onClick(position: Int) {
-                    (requireActivity() as MainActivity).onShowDialogFragment(
-                        SectionServicesDialog(
-                            viewModel.onGetData().value!!.first { item -> item.id == position },
-                            object : SectionServicesDialog.ISectionServicesDialog {
-                                override fun onCreateService(sectionId: Int) {
-                                    (requireActivity() as MainActivity).onShowDialogFragment(
-                                        AddServiceDialog(
-                                            delegate = object : AddServiceDialog.IAddServiceDialog {
-                                                override fun onAccept(
-                                                    serviceName: String,
-                                                    price: Float,
-                                                    time: Float,
-                                                    measurement: String
-                                                ) {
-                                                    (requireActivity() as MainActivity).onShowDialogFragment(
-                                                        TextDialogWithYesNo(
-                                                            "Вы действительно хотите добавить услугу в секцию?",
-                                                            object : ITextDialogWithYesNo {
-                                                                override fun onAccept() {
-                                                                    viewModel.onCreateService(
-                                                                        sectionId,
-                                                                        serviceName,
-                                                                        price,
-                                                                        time,
-                                                                        measurement
-                                                                    )
-                                                                }
-                                                            }
-                                                        )
-                                                    )
-                                                }
-                                            }
-                                        )
-                                    )
-                                }
-
-                                override fun onAddMaster(sectionId: Int) {
-                                    (requireActivity() as MainActivity).onShowDialogFragment(
-                                        AddWorkersDialog(
-                                            viewModel.onGetWorkers().value ?: mutableListOf(),
-                                            object : AddWorkersDialog.IAddWorkersDialog {
-                                                override fun onAddMaster(userId: Int) {
-                                                    (requireActivity() as MainActivity).onShowDialogFragment(
-                                                        TextDialogWithYesNo(
-                                                            "Вы действительно хотите добавить мастера к секции?",
-                                                            object : ITextDialogWithYesNo {
-                                                                override fun onAccept() {
-                                                                    viewModel.onAddMaster(
-                                                                        sectionId,
-                                                                        userId
-                                                                    )
-                                                                }
-                                                            }
-                                                        )
-                                                    )
-                                                }
-                                            }
-                                        )
-                                    )
-                                }
-
-                                override fun onEdit(serviceModel: ServiceModel) {
-                                    (requireActivity() as MainActivity).onShowDialogFragment(
-                                        AddServiceDialog(
-                                            serviceModel = serviceModel,
-                                            delegate = object : AddServiceDialog.IAddServiceDialog {
-                                                override fun onAccept(
-                                                    serviceName: String,
-                                                    price: Float,
-                                                    time: Float,
-                                                    measurement: String
-                                                ) {
-                                                    (requireActivity() as MainActivity).onShowDialogFragment(
-                                                        TextDialogWithYesNo(
-                                                            "Вы действительно хотите изменить услугу?",
-                                                            object : ITextDialogWithYesNo {
-                                                                override fun onAccept() {
-                                                                    viewModel.onEditService(
-                                                                        serviceModel.id,
-                                                                        serviceName,
-                                                                        price,
-                                                                        time,
-                                                                        measurement
-                                                                    )
-                                                                }
-                                                            }
-                                                        )
-                                                    )
-                                                }
-                                            }
-                                        )
-                                    )
-                                }
-
-                                override fun onDelete(serviceId: Int) {
-                                    (requireActivity() as MainActivity).onShowDialogFragment(
-                                        TextDialogWithYesNo(
-                                            "Вы действительно хотите удалить услугу?",
-                                            object : ITextDialogWithYesNo {
-                                                override fun onAccept() {
-                                                    viewModel.onDeleteService(serviceId)
-                                                }
-                                            }
-                                        )
-                                    )
-                                }
-
-                            }
-                        )
-                    )
+                    if (position < 0) {
+                        onEditSection(position * -1)
+                    }
+                    if (position > 0) {
+                        onShowMore(position)
+                    }
                 }
             })
+    }
+
+    private fun  onEditSection(position: Int) {
+        (requireActivity() as MainActivity).onShowDialogFragment(
+            PageSectionDialog(
+                viewModel.onGetData().value!!.first { item -> item.id == position },
+                object : PageSectionDialog.IPageSectionDialog {
+                    override fun onEdit(sectionId: Int, sectionName: String) {
+                        (requireActivity() as MainActivity).onShowDialogFragment(
+                            TextDialogWithYesNo(
+                                "Вы действительно хотите изменить секцию?",
+                                object: ITextDialogWithYesNo {
+                                    override fun onAccept() {
+                                        viewModel.onEditSection(sectionId, sectionName)
+                                    }
+                                }
+                            )
+                        )
+                    }
+
+                    override fun onDelete(sectionId: Int) {
+                        (requireActivity() as MainActivity).onShowDialogFragment(
+                            TextDialogWithYesNo(
+                                "Вы действительно хотите удалить секцию?",
+                                object: ITextDialogWithYesNo {
+                                    override fun onAccept() {
+                                        viewModel.onRemoveSection(sectionId)
+                                    }
+                                }
+                            )
+                        )
+                    }
+                }
+            )
+        )
+    }
+
+    private fun onShowMore(position: Int) {
+        (requireActivity() as MainActivity).onShowDialogFragment(
+            SectionServicesDialog(
+                viewModel.onGetData().value!!.first { item -> item.id == position },
+                object : SectionServicesDialog.ISectionServicesDialog {
+                    override fun onCreateService(sectionId: Int) {
+                        (requireActivity() as MainActivity).onShowDialogFragment(
+                            AddServiceDialog(
+                                delegate = object :
+                                    AddServiceDialog.IAddServiceDialog {
+                                    override fun onAccept(
+                                        serviceName: String,
+                                        price: Float,
+                                        time: Float,
+                                        measurement: String
+                                    ) {
+                                        (requireActivity() as MainActivity).onShowDialogFragment(
+                                            TextDialogWithYesNo(
+                                                "Вы действительно хотите добавить услугу в секцию?",
+                                                object : ITextDialogWithYesNo {
+                                                    override fun onAccept() {
+                                                        viewModel.onCreateService(
+                                                            sectionId,
+                                                            serviceName,
+                                                            price,
+                                                            time,
+                                                            measurement
+                                                        )
+                                                    }
+                                                }
+                                            )
+                                        )
+                                    }
+                                }
+                            )
+                        )
+                    }
+
+                    override fun onAddMaster(sectionId: Int) {
+                        (requireActivity() as MainActivity).onShowDialogFragment(
+                            AddWorkersDialog(
+                                viewModel.onGetWorkers().value ?: mutableListOf(),
+                                object : AddWorkersDialog.IAddWorkersDialog {
+                                    override fun onAddMaster(userId: Int) {
+                                        (requireActivity() as MainActivity).onShowDialogFragment(
+                                            TextDialogWithYesNo(
+                                                "Вы действительно хотите добавить мастера к секции?",
+                                                object : ITextDialogWithYesNo {
+                                                    override fun onAccept() {
+                                                        viewModel.onAddMaster(
+                                                            sectionId,
+                                                            userId
+                                                        )
+                                                    }
+                                                }
+                                            )
+                                        )
+                                    }
+                                }
+                            )
+                        )
+                    }
+
+                    override fun onEdit(serviceModel: ServiceModel) {
+                        (requireActivity() as MainActivity).onShowDialogFragment(
+                            AddServiceDialog(
+                                serviceModel = serviceModel,
+                                delegate = object :
+                                    AddServiceDialog.IAddServiceDialog {
+                                    override fun onAccept(
+                                        serviceName: String,
+                                        price: Float,
+                                        time: Float,
+                                        measurement: String
+                                    ) {
+                                        (requireActivity() as MainActivity).onShowDialogFragment(
+                                            TextDialogWithYesNo(
+                                                "Вы действительно хотите изменить услугу?",
+                                                object : ITextDialogWithYesNo {
+                                                    override fun onAccept() {
+                                                        viewModel.onEditService(
+                                                            serviceModel.id,
+                                                            serviceName,
+                                                            price,
+                                                            time,
+                                                            measurement
+                                                        )
+                                                    }
+                                                }
+                                            )
+                                        )
+                                    }
+                                }
+                            )
+                        )
+                    }
+
+                    override fun onDelete(serviceId: Int) {
+                        (requireActivity() as MainActivity).onShowDialogFragment(
+                            TextDialogWithYesNo(
+                                "Вы действительно хотите удалить услугу?",
+                                object : ITextDialogWithYesNo {
+                                    override fun onAccept() {
+                                        viewModel.onDeleteService(serviceId)
+                                    }
+                                }
+                            )
+                        )
+                    }
+
+                }
+            )
+        )
     }
 
     override fun onCreateView(
@@ -161,9 +205,25 @@ class AdminServiceFragment : Fragment() {
     override fun onStart() {
         super.onStart()
 
+        binding.btnCreateSection.setOnClickListener {
+            (requireActivity() as MainActivity).onShowDialogFragment(AddSectionDialog(object :
+                AddSectionDialog.IAddSectionDialog {
+                override fun onAccept(sectionName: String) {
+                    (requireActivity() as MainActivity).onShowDialogFragment(
+                        TextDialogWithYesNo(
+                            "Вы хотите создать секцию?",
+                            object: ITextDialogWithYesNo {
+                                override fun onAccept() {
+                                    viewModel.onCreateSection(sectionName)
+                                }
+                            }
+                        )
+                    )
+                }
+            }))
+        }
         viewModel.onGetData().observe(viewLifecycleOwner) {
             adapter.onUpdateItems(it)
         }
-        viewModel.onLoadData()
     }
 }

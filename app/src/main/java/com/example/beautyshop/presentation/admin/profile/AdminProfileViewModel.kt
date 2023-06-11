@@ -14,6 +14,11 @@ import java.io.File
 import java.util.*
 
 class AdminProfileViewModel : ViewModel(), IAdminProfileViewModel {
+
+    init {
+        onLoadData()
+    }
+
     private val isProgress: MutableLiveData<Boolean> = MutableLiveData(false)
     private val profileLiveData: MutableLiveData<ProfileModel> = MutableLiveData()
     private val isErrorLiveData: MutableLiveData<String> = MutableLiveData()

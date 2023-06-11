@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.beautyshop.conventions.RenderViewType
 import com.example.beautyshop.data.models.ProfileModel
+import com.example.beautyshop.databinding.FragmentAdminUserBinding
 import com.example.beautyshop.databinding.FragmentAdminWorkerBinding
 import com.example.beautyshop.presentation.adapters.RenderAdapter
 import com.example.beautyshop.presentation.dialogs.AddWorkerDialog
@@ -18,7 +19,7 @@ import com.example.beautyshop.presentation.root.MainActivity
 
 class AdminUserFragment : Fragment() {
 
-    private var _binding: FragmentAdminWorkerBinding? = null
+    private var _binding: FragmentAdminUserBinding? = null
     private val binding get() = _binding!!
     private val viewModel by lazy {
         ViewModelProvider(this)[AdminUserViewModel::class.java]
@@ -54,14 +55,13 @@ class AdminUserFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentAdminWorkerBinding.inflate(layoutInflater)
+        _binding = FragmentAdminUserBinding.inflate(layoutInflater)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.rvWorkers.adapter = adapter
-        viewModel.onLoadData()
     }
 
     override fun onStart() {

@@ -1,14 +1,11 @@
-package com.example.beautyshop.presentation.admin.sections
+package com.example.beautyshop.presentation.admin.schedules
 
 import androidx.lifecycle.MutableLiveData
 import com.example.beautyshop.data.models.SectionModel
 
-interface IAdminSectionViewModel {
+interface IScheduleViewModel {
     fun onGetIsLoad(): MutableLiveData<Boolean>
     fun onGetData(): MutableLiveData<MutableList<SectionModel>>
     fun onGetIsError(): MutableLiveData<String>
     fun onLoadData()
-    fun onCreateSection(sectionName: String)
-    fun onEditSection(sectionId: Int, sectionName: String)
-    fun onRemoveSection(sectionId: Int)
 }

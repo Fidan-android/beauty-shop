@@ -1,4 +1,4 @@
-package com.example.beautyshop.presentation.user.services
+package com.example.beautyshop.presentation.admin.schedules
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
@@ -6,12 +6,16 @@ import androidx.lifecycle.ViewModel
 import com.example.beautyshop.data.api.ApiHelper
 import com.example.beautyshop.data.models.SectionModel
 import com.example.beautyshop.data.models.SectionResponse
-import com.example.beautyshop.presentation.admin.schedules.IScheduleViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
 
-class ServiceViewModel : ViewModel(), IScheduleViewModel {
+class ScheduleViewModel : ViewModel(), IScheduleViewModel {
+
+    init {
+        onLoadData()
+    }
+
     private val isProgress: MutableLiveData<Boolean> = MutableLiveData(false)
     private val servicesLiveData: MutableLiveData<MutableList<SectionModel>> = MutableLiveData()
     private val isErrorLiveData: MutableLiveData<String> = MutableLiveData()

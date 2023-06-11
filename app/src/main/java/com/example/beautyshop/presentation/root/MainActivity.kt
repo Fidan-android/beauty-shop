@@ -148,9 +148,6 @@ class MainActivity : AppCompatActivity(), IMainActivity {
         binding.bottomMenu.setOnItemSelectedListener { item ->
             if (selectedItem == -1 || item.itemId != selectedItem) {
                 when (item.itemId) {
-                    R.id.adminSectionFragment -> {
-                        navHostFragment.navController.navigate(R.id.adminSectionFragment)
-                    }
                     R.id.adminServiceFragment -> {
                         navHostFragment.navController.navigate(R.id.adminServiceFragment)
                     }
@@ -159,6 +156,9 @@ class MainActivity : AppCompatActivity(), IMainActivity {
                     }
                     R.id.adminUserFragment -> {
                         navHostFragment.navController.navigate(R.id.adminUserFragment)
+                    }
+                    R.id.adminScheduleFragment -> {
+                        navHostFragment.navController.navigate(R.id.adminScheduleFragment)
                     }
                     R.id.adminProfileFragment -> {
                         navHostFragment.navController.navigate(R.id.adminProfileFragment)

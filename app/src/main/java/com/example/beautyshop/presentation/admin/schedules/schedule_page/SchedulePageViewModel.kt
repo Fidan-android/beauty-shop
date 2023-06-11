@@ -1,4 +1,4 @@
-package com.example.beautyshop.presentation.user.service_page
+package com.example.beautyshop.presentation.admin.schedules.schedule_page
 
 import android.annotation.SuppressLint
 import android.util.Log
@@ -10,14 +10,18 @@ import com.example.beautyshop.data.models.ScheduleModel
 import com.example.beautyshop.data.models.SectionModel
 import com.example.beautyshop.data.models.SectionResponse
 import com.example.beautyshop.models.CreateAppointmentRequest
-import com.example.beautyshop.presentation.admin.schedules.schedule_page.ISchedulePageViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
 
-class ServicePageViewModel : ViewModel(), ISchedulePageViewModel {
+class SchedulePageViewModel : ViewModel(), ISchedulePageViewModel {
+
+    init {
+        onLoadData()
+    }
+
     private val isProgress: MutableLiveData<Boolean> = MutableLiveData(false)
     private val sectionsLiveData: MutableLiveData<MutableList<SectionModel>> = MutableLiveData()
     private val profileLiveData: MutableLiveData<ProfileModel> = MutableLiveData()

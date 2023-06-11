@@ -12,13 +12,14 @@ import com.example.beautyshop.conventions.RenderViewType
 import com.example.beautyshop.data.models.SectionModel
 import com.example.beautyshop.databinding.FragmentServiceBinding
 import com.example.beautyshop.presentation.adapters.RenderAdapter
+import com.example.beautyshop.presentation.admin.schedules.ScheduleViewModel
 
 class ServiceFragment : Fragment() {
 
     private var _binding: FragmentServiceBinding? = null
     private val binding get() = _binding!!
     private val viewModel by lazy {
-        ViewModelProvider(this)[ServiceViewModel::class.java]
+        ViewModelProvider(this)[ScheduleViewModel::class.java]
     }
 
     private val adapter: RenderAdapter<SectionModel> by lazy {

@@ -1,4 +1,4 @@
-package com.example.beautyshop.presentation.user.service_page
+package com.example.beautyshop.presentation.admin.schedules.schedule_page
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -16,9 +16,8 @@ import com.bumptech.glide.load.model.LazyHeaders
 import com.example.beautyshop.R
 import com.example.beautyshop.conventions.RenderViewType
 import com.example.beautyshop.data.models.ScheduleModel
-import com.example.beautyshop.databinding.FragmentServicePageBinding
+import com.example.beautyshop.databinding.FragmentAdminServicePageBinding
 import com.example.beautyshop.presentation.adapters.RenderAdapter
-import com.example.beautyshop.presentation.admin.schedules.schedule_page.SchedulePageViewModel
 import com.example.beautyshop.presentation.custom.CustomCalendarView
 import com.example.beautyshop.presentation.dialogs.ITextDialogWithYesNo
 import com.example.beautyshop.presentation.dialogs.TextDialogWithYesNo
@@ -27,10 +26,10 @@ import com.google.android.material.snackbar.Snackbar
 import java.text.SimpleDateFormat
 import java.util.*
 
-class ServicePageFragment : Fragment() {
-    private var _binding: FragmentServicePageBinding? = null
+class SchedulePageFragment : Fragment() {
+    private var _binding: FragmentAdminServicePageBinding? = null
     private val binding get() = _binding!!
-    private val args: ServicePageFragmentArgs by navArgs()
+    private val args: SchedulePageFragmentArgs by navArgs()
     private val viewModel by lazy {
         ViewModelProvider(this)[SchedulePageViewModel::class.java]
     }
@@ -39,18 +38,7 @@ class ServicePageFragment : Fragment() {
             RenderViewType.ScheduleTimesViewType.viewType,
             object : RenderAdapter.IItemClickListener {
                 override fun onClick(position: Int) {
-                    (requireActivity() as MainActivity).onShowDialogFragment(
-                        TextDialogWithYesNo(
-                            "Вы действительно хотите записаться?",
-                            object : ITextDialogWithYesNo {
-                                override fun onAccept() {
-                                    viewModel.onCreateAppointment(position)
-                                    clearForm()
-                                    binding.currentCalendarView.onReset()
-                                }
-                            }
-                        )
-                    )
+
                 }
             }
         )
@@ -61,14 +49,13 @@ class ServicePageFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentServicePageBinding.inflate(layoutInflater)
+        _binding = FragmentAdminServicePageBinding.inflate(layoutInflater)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.rvScheduleTimes.adapter = adapter
-        viewModel.onLoadData()
     }
 
     @SuppressLint("SetTextI18n")
