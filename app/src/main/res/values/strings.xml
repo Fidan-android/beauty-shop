@@ -60,6 +60,7 @@
     <string name="title_users">Пользователи</string>
     <string name="time_schedule">Вы действительно хотите добавить cвободное время в %1$s?</string>
     <string name="title_graphic">График</string>
+    <string name="to_appointment">Вы действительно хотите записаться на %1$s?</string>
     <string-array name="times">
         <item>час</item>
         <item>мин</item>

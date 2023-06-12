@@ -13,6 +13,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.model.GlideUrl
 import com.bumptech.glide.load.model.LazyHeaders
+import com.example.beautyshop.App
 import com.example.beautyshop.R
 import com.example.beautyshop.conventions.RenderViewType
 import com.example.beautyshop.data.models.ScheduleModel
@@ -34,14 +35,23 @@ class ServicePageFragment : Fragment() {
     private val viewModel by lazy {
         ViewModelProvider(this)[SchedulePageViewModel::class.java]
     }
+
     private val adapter: RenderAdapter<ScheduleModel> by lazy {
         RenderAdapter(
             RenderViewType.ScheduleTimesViewType.viewType,
             object : RenderAdapter.IItemClickListener {
+                @SuppressLint("SimpleDateFormat")
                 override fun onClick(position: Int) {
                     (requireActivity() as MainActivity).onShowDialogFragment(
                         TextDialogWithYesNo(
-                            "Вы действительно хотите записаться?",
+                                App.appContext.getString(
+                                    R.string.time_schedule,
+                                    SimpleDateFormat("HH:mm").format(
+                                        SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(
+                                            viewModel.onGetSchedules().value!!.first { item -> item.id == position }.time
+                                        )!!
+                                    )
+                                ),
                             object : ITextDialogWithYesNo {
                                 override fun onAccept() {
                                     viewModel.onCreateAppointment(position)
